@@ -1,4 +1,7 @@
 package com.example.quizzy.model.daos;
 
-public class QuestionDao {
+import androidx.room.Dao;
+
+@Dao
+public interface QuestionDao {
 }
