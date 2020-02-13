@@ -1,4 +1,4 @@
-package com.example.quizzy.Model.entities;
+package com.example.quizzy.model.entities;
 
 import androidx.room.Entity;
 
