@@ -15,6 +15,8 @@ public class ReponseVraie {
     @ColumnInfo(name = "libelleReponseVraie")
     private String libelleReponseVraie;
 
+    public Integer questionsOwnerResponseTrue_id;   // lien vers la clé primaire de la table reponse vraie
+
     @NonNull
     public Integer getId_reponseVraie() {
         return id_reponseVraie;

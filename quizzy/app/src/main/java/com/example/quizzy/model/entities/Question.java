@@ -2,17 +2,27 @@ package com.example.quizzy.model.entities;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
+import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-
-
-public class Questions {
+@Entity
+public class Question {
 
     @PrimaryKey()
     @NonNull
+    @ColumnInfo(name = "id_question")
     private Integer id_question;
-    @ColumnInfo
+    @ColumnInfo(name = "libelleQuestion")
     private String libelleQuestion;
+
+    public Integer categoryOwnerQuestion_id;    // lien avec la clé primaire de Category
+
+    public  Question(Integer id, String libelle, Integer id_category){
+        this.id_question= id;
+        this.libelleQuestion= libelle;
+        this.categoryOwnerQuestion_id= id_category;
+    }
+    public Question(){}
 
     @NonNull
     public Integer getId_question() {

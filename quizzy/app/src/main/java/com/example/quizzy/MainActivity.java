@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.example.quizzy.model.Repository.UserDatabase;
+import com.example.quizzy.model.entities.Category;
+import com.example.quizzy.model.entities.Question;
 import com.example.quizzy.model.entities.User;
 
 import java.time.Instant;
@@ -26,10 +28,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final UserDatabase db = Room.databaseBuilder(this, UserDatabase.class, "quizzy_bdd.db").build();
+        final UserDatabase db = Room.databaseBuilder(this, UserDatabase.class, "user_bdd.db").build();
 
         ExecutorService executor = Executors.newSingleThreadExecutor();
-        executor.submit(new Runnable() {
+        /*executor.submit(new Runnable() {
             @Override
             public void run() {
 
@@ -42,14 +44,48 @@ public class MainActivity extends AppCompatActivity {
 
                 db.UserDao().insertUser(user);
             }
+        });*/
+       /* executor.submit(new Runnable() {
+            @Override
+            public void run() {
+
+                Category category= new Category(1,"Drame");
+                Category c1= new Category(2,"Horrorr");
+                Category c2= new Category(3,"Animé");
+                db.CategoryDao().insertCategory(category);
+                db.CategoryDao().insertCategory(c1);
+                db.CategoryDao().insertCategory(c2);
+            }
+        });*/
+        /*executor.submit(new Runnable() {
+            @Override
+            public void run() {
+
+                Question question= new Question(1,"quel est le meilleur filme Drama",1);
+                Question q1= new Question(2,"Le drame est il la meilleure des choses",1);
+                Question q2= new Question(3,"Don't know what to say",2);
+                db.QuestionDao().insertQuestion(question);
+                db.QuestionDao().insertQuestion(q1);
+                db.QuestionDao().insertQuestion(q2);
+            }
+        });*/
+        executor.submit(new Runnable() {
+            @Override
+            public void run() {
+                List<Category> listCategory = db.CategoryDao().getAllCategory();
+                for(Category c: listCategory){
+                    Log.d("Quizz Category",c.getLibelleCategory());
+                    System.out.println("Quizz Category: "+c.getLibelleCategory());
+                }
+            }
         });
 
         executor.submit(new Runnable() {
             @Override
             public void run() {
-                List<User> listUser = db.UserDao().getAllUser("aName");
-                for(User u: listUser){
-                    Log.d("Quizz BDD",u.getName());
+                List<Question> listQuestion = db.QuestionDao().getSpecificQuestion(1);
+                for(Question q: listQuestion){
+                    Log.d("Quizz Questions",q.getLibelleQuestion());
                 }
             }
         });

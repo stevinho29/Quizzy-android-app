@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey;
 
 
 @Entity
-public class Indices {
+public class Indice {
 
     @PrimaryKey()
     @NonNull
@@ -15,6 +15,8 @@ public class Indices {
     private Integer id_indice;
     @ColumnInfo(name = "libelleIndice")
     private String libelleIndice;
+
+    public Integer questionsOwnerIndice_id; // lien vers la clé primaire question
 
     @NonNull
     public Integer getId_indice() {
@@ -25,11 +27,11 @@ public class Indices {
         this.id_indice = id_indice;
     }
 
-    public String getLibelle() {
+    public String getLibelleIndice() {
         return libelleIndice;
     }
 
-    public void setLibelle(String libelle) {
+    public void setLibelleIndice(String libelle) {
         this.libelleIndice = libelle;
     }
 }

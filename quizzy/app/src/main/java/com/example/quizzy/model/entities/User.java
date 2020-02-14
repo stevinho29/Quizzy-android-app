@@ -3,12 +3,14 @@ package com.example.quizzy.model.entities;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-import java.time.LocalDate;
+
 import java.util.Date;
 
-@Entity
+@Entity(indices = {@Index(value = "email", unique = true)})
 public class User {
 
     @PrimaryKey()
@@ -21,6 +23,13 @@ public class User {
     private String surname;
     @ColumnInfo(name = "birthDate")
     private Date birthDate;
+    @ColumnInfo(name = "email")
+    private String email;
+    @ColumnInfo(name = "password")
+    private String password;
+
+    @Ignore
+    private String confirmPassword;
 
     @NonNull
     public Integer getId_user() {
@@ -54,4 +63,12 @@ public class User {
     public void setSurname(String surname) {
         this.surname = surname;
     }
+
+    public String getEmail() { return email; }
+
+    public void setEmail(String email) { this.email = email; }
+
+    public String getPassword() { return password; }
+
+    public void setPassword(String password) { this.password = password; }
 }

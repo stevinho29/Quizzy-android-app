@@ -7,12 +7,15 @@ import androidx.room.PrimaryKey;
 
 @Entity
 public class ReponseFausse {
+
     @PrimaryKey()
     @NonNull
     @ColumnInfo(name = "id_reponseFausse")
     private Integer id_reponseFausse;
     @ColumnInfo(name = "libelleReponseFausse")
     private String libelleReponseFausse;
+
+    public Integer questionsOwnerResponseFalse_id; // lien vers la clé primaire Question
 
     @NonNull
     public Integer getId_reponseFausse() {
