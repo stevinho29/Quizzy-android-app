@@ -10,6 +10,7 @@ import androidx.room.Query;
 import androidx.room.Transaction;
 import androidx.room.Update;
 
+import com.example.quizzy.model.entities.Category;
 import com.example.quizzy.model.entities.Question;
 import com.example.quizzy.model.entities.QuestionAndReponseVraie;
 import com.example.quizzy.model.entities.QuestionAndReponsesFalse;
@@ -37,7 +38,17 @@ public interface QuestionDao {
     List<Question> getAllQuestion();
 
     @Query("SELECT * FROM Question WHERE categoryOwnerQuestion_id= :id")
-    List<Question> getSpecificQuestion(Integer id);
+    Question getSpecificQuestion(Integer id);
+
+    @Query("SELECT * FROM Question WHERE id_question= :id")
+    Question getQuestionById(Integer id);
+
+    @Query("SELECT * FROM Question WHERE id_question= :libelle")
+    Question getQuestionBylibelle(String libelle);
+
+    @Query("SELECT * FROM Question WHERE libelleQuestion= :libelle")
+    Question checkIfQuestion(String libelle);
+
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertQuestion(Question question);

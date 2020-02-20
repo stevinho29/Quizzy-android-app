@@ -12,7 +12,7 @@ import java.util.Date;
 @Entity
 public class Party {
 
-    @PrimaryKey()
+    @PrimaryKey(autoGenerate = true)
     @NonNull
     @ColumnInfo(name = "id_party")
     private Integer id_party;
@@ -23,8 +23,8 @@ public class Party {
     @ColumnInfo(name = "date_party")
     public Date date_party;
 
-    public Party(Integer id, Integer duree, Integer score, Date date){
-        this.id_party=id;
+    public Party( Integer duree, Integer score, Date date){
+
         this.duree= duree;
         this.score= score;
         this.date_party= date;

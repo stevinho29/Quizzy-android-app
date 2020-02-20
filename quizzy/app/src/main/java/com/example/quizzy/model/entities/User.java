@@ -13,7 +13,7 @@ import java.util.Date;
 @Entity(indices = {@Index(value = "email", unique = true)})
 public class User {
 
-    @PrimaryKey()
+    @PrimaryKey(autoGenerate = true)
     @NonNull
     @ColumnInfo(name = "id_user")
     private Integer id_user;
@@ -30,6 +30,9 @@ public class User {
 
     @Ignore
     private String confirmPassword;
+
+    public User(){
+    }
 
     @NonNull
     public Integer getId_user() {

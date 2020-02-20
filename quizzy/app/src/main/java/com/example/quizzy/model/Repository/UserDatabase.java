@@ -23,7 +23,7 @@ import com.example.quizzy.model.entities.ReponseVraie;
 import com.example.quizzy.model.entities.User;
 
 
-@Database(entities = {User.class, ReponseVraie.class, ReponseFausse.class, Question.class, Jouer.class, Party.class, Category.class, HavingQuestions.class, Indice.class},version = 1,exportSchema = false)
+@Database(entities = {User.class, ReponseVraie.class, ReponseFausse.class, Question.class, Jouer.class, Party.class, Category.class, HavingQuestions.class, Indice.class},version =1,exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class UserDatabase extends RoomDatabase{
 

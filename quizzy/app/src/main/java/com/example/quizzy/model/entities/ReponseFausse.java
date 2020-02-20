@@ -3,12 +3,13 @@ package com.example.quizzy.model.entities;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity
 public class ReponseFausse {
 
-    @PrimaryKey()
+    @PrimaryKey(autoGenerate = true)
     @NonNull
     @ColumnInfo(name = "id_reponseFausse")
     private Integer id_reponseFausse;
@@ -17,6 +18,13 @@ public class ReponseFausse {
 
     public Integer questionsOwnerResponseFalse_id; // lien vers la clé primaire Question
 
+    public ReponseFausse( String libelleReponseFausse, Integer questionsOwnerResponseFalse_id){
+
+        this.libelleReponseFausse= libelleReponseFausse;
+        this.questionsOwnerResponseFalse_id= questionsOwnerResponseFalse_id;
+    }
+    @Ignore
+    public ReponseFausse(){}
     @NonNull
     public Integer getId_reponseFausse() {
         return id_reponseFausse;

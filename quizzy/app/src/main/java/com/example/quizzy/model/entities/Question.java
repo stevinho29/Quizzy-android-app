@@ -8,18 +8,20 @@ import androidx.room.PrimaryKey;
 @Entity
 public class Question {
 
-    @PrimaryKey()
+    @PrimaryKey(autoGenerate = true)
     @NonNull
     @ColumnInfo(name = "id_question")
     private Integer id_question;
     @ColumnInfo(name = "libelleQuestion")
     private String libelleQuestion;
+    @ColumnInfo(name = "difficulty")
+    private String difficulty;
 
     public Integer categoryOwnerQuestion_id;    // lien avec la clé primaire de Category
 
-    public  Question(Integer id, String libelle, Integer id_category){
-        this.id_question= id;
+    public  Question( String libelle,String difficulty, Integer id_category){
         this.libelleQuestion= libelle;
+        this.difficulty=difficulty;
         this.categoryOwnerQuestion_id= id_category;
     }
     public Question(){}
@@ -37,7 +39,9 @@ public class Question {
         return libelleQuestion;
     }
 
-    public void setLibelleQuestion(String libelleQuestion) {
-        this.libelleQuestion = libelleQuestion;
-    }
+    public void setLibelleQuestion(String libelleQuestion) { this.libelleQuestion = libelleQuestion; }
+
+    public String getDifficulty() { return difficulty; }
+
+    public void setDifficulty(String difficulty) { this.difficulty = difficulty; }
 }

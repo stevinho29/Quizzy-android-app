@@ -9,15 +9,14 @@ import androidx.room.PrimaryKey;
 @Entity
 public class Category {
 
-    @PrimaryKey()
+    @PrimaryKey(autoGenerate = true)
     @NonNull
     @ColumnInfo(name = "id_category")
     private Integer id_category;
     @ColumnInfo(name = "libelleCategory")
     private String libelleCategory;
 
-    public Category(Integer id, String libelle){
-        this.id_category=id;
+    public Category( String libelle){
         this.libelleCategory= libelle;
     }
     public Category(){}

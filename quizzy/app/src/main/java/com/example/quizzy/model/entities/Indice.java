@@ -9,7 +9,7 @@ import androidx.room.PrimaryKey;
 @Entity
 public class Indice {
 
-    @PrimaryKey()
+    @PrimaryKey(autoGenerate = true)
     @NonNull
     @ColumnInfo(name = "id_indice")
     private Integer id_indice;
