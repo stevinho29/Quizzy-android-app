@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">quizzy</string>
+    <string name="app_name">QUIZZY</string>
 
 
     <!-- log strings -->
@@ -14,4 +14,40 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+
+
+    <!-- accueil strings -->
+    <string name="accueil">Accueil</string>
+    <string name="palmares">Palmares</string>
+    <string name="resultat">Resultat</string>
+    <string name="text_geographie">GEOGRAPHIE</string>
+    <string name="text_science">SCIENCE</string>
+    <string name="text_histoire">HISTOIRE</string>
+    <string name="foot_text_science">Des questions élémentaires en science</string>
+    <string name="foot_text_history">Connaissez vous votre histoire et celle du monde ?</string>
+    <string name="foot_text_geographie">Des questions élémentaires sur la géographie</string>
+
+
+    <string name="points">25 points</string>
+    <string name="parties">Parties</string>
+    <string name="numero25">25</string>
+    <string name="date25">17/02/2020</string>
+    <string name="points25">26 points</string>
+    <string name="numero24">24</string>
+    <string name="date24">17/02/2020</string>
+    <string name="points24">20 points</string>
+    <string name="numero23">23</string>
+    <string name="date23">17/02/2020</string>
+    <string name="points23">27points</string>
+    <string name="numero22">22</string>
+    <string name="date22">17/02/2020</string>
+    <string name="points22">18 points</string>
+
+    <!-- questions strings -->
+    <string name="number_question">05/10</string>
+    <string name="question">Quelle est la planète la plus froide du système solaire ?</string>
+    <string name="reponse_1">Mars</string>
+    <string name="reponse_2">Neptune</string>
+    <string name="reponse_3">Jupiter</string>
+    <string name="reponse_4">Terre</string>
 </resources>

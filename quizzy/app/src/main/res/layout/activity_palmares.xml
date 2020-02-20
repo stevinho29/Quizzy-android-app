@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorMain"
+    android:orientation="vertical">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/colorHeader"
+            android:gravity="center_horizontal"
+            android:paddingEnd="@dimen/header_padding_end"
+            android:textAlignment="center"
+            app:buttonGravity="top"
+            app:title="@string/palmares" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="270dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="#FFFFFF"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="@dimen/palmares_width"
+                        android:layout_height="@dimen/palmares_height"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginTop="@dimen/card_padding"
+                        android:layout_marginRight="25dp"
+                        android:layout_marginBottom="@dimen/card_padding"
+                        android:background="@drawable/coupe"
+                        android:minHeight="@dimen/card_height"
+                        app:cardBackgroundColor="@color/colorPink"
+                        app:cardCornerRadius="@dimen/card_corner_radius">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/bullesh"
+                            android:orientation="vertical"
+                            android:textAlignment="center">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="@dimen/card_top_text_paddingH"
+                                android:paddingTop="@dimen/palmares_card_padding"
+                                android:paddingRight="@dimen/card_top_text_paddingH"
+                                android:paddingBottom="@dimen/palmares_card_padding"
+                                android:textAlignment="center">
+
+                                <TextView
+                                    android:id="@+id/headCardGeo"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/text_geographie"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/colorWhite"
+                                    android:textSize="24sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <TextView
+                                    android:id="@+id/footCardGeo"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/points"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/colorWhite"
+                                    android:textSize="24sp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="@dimen/palmares_width"
+                        android:layout_height="@dimen/palmares_height"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginTop="@dimen/card_padding"
+                        android:layout_marginRight="25dp"
+                        android:layout_marginBottom="@dimen/card_padding"
+                        android:background="@drawable/coupe"
+                        android:minHeight="@dimen/card_height"
+                        app:cardBackgroundColor="@color/colorViolet"
+                        app:cardCornerRadius="@dimen/card_corner_radius">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/bullesh"
+                            android:orientation="vertical"
+                            android:textAlignment="center">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="@dimen/card_top_text_paddingH"
+                                android:paddingTop="@dimen/palmares_card_padding"
+                                android:paddingRight="@dimen/card_top_text_paddingH"
+                                android:paddingBottom="@dimen/palmares_card_padding"
+                                android:textAlignment="center">
+
+                                <TextView
+                                    android:id="@+id/headCardHisto"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/text_histoire"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/colorWhite"
+                                    android:textSize="24sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <TextView
+                                    android:id="@+id/footCardHisto"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/points"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/colorWhite"
+                                    android:textSize="24sp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="@dimen/palmares_width"
+                        android:layout_height="@dimen/palmares_height"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginTop="@dimen/card_padding"
+                        android:layout_marginRight="25dp"
+                        android:layout_marginBottom="@dimen/card_padding"
+                        android:background="@drawable/coupe"
+                        android:minHeight="@dimen/card_height"
+                        app:cardBackgroundColor="@color/colorYellow"
+                        app:cardCornerRadius="@dimen/card_corner_radius">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/bullesh"
+                            android:orientation="vertical"
+                            android:textAlignment="center">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="@dimen/card_top_text_paddingH"
+                                android:paddingTop="@dimen/palmares_card_padding"
+                                android:paddingRight="@dimen/card_top_text_paddingH"
+                                android:paddingBottom="@dimen/palmares_card_padding"
+                                android:textAlignment="center">
+
+                                <TextView
+                                    android:id="@+id/headCardSci"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/text_science"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/colorWhite"
+                                    android:textSize="24sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <TextView
+                                    android:id="@+id/footCardSci"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/points"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/colorWhite"
+                                    android:textSize="24sp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:layout_marginBottom="0dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/parties"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/parties"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="30sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="#FFFFFF"
+                    android:orientation="horizontal"
+                    android:paddingStart="0dp"
+                    android:paddingTop="2dp"
+                    android:paddingEnd="2dp"
+                    android:paddingBottom="2dp">
+
+                    <TextView
+                        android:id="@+id/numero25"
+                        android:layout_width="54dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:text="@string/numero25"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorMain"
+                        android:textSize="24sp" />
+
+                    <TextView
+                        android:id="@+id/date25"
+                        android:layout_width="137dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@color/colorMain"
+                        android:gravity="center_vertical"
+                        android:text="@string/date25"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="24sp" />
+
+                    <TextView
+                        android:id="@+id/points25"
+                        android:layout_width="136dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@color/colorMain"
+                        android:gravity="center_vertical"
+                        android:text="@string/points25"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="24sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="#FFFFFF"
+                    android:orientation="horizontal"
+                    android:paddingStart="0dp"
+                    android:paddingTop="2dp"
+                    android:paddingEnd="2dp"
+                    android:paddingBottom="2dp">
+
+                    <TextView
+                        android:id="@+id/numero24"
+                        android:layout_width="54dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:text="@string/numero24"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorMain"
+                        android:textSize="24sp" />
+
+                    <TextView
+                        android:id="@+id/date24"
+                        android:layout_width="137dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@color/colorMain"
+                        android:gravity="center_vertical"
+                        android:text="@string/date24"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="24sp" />
+
+                    <TextView
+                        android:id="@+id/points24"
+                        android:layout_width="136dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@color/colorMain"
+                        android:gravity="center_vertical"
+                        android:text="@string/points24"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="24sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="#FFFFFF"
+                    android:orientation="horizontal"
+                    android:paddingStart="0dp"
+                    android:paddingTop="2dp"
+                    android:paddingEnd="2dp"
+                    android:paddingBottom="2dp">
+
+                    <TextView
+                        android:id="@+id/numero23"
+                        android:layout_width="54dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:text="@string/numero23"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorMain"
+                        android:textSize="24sp" />
+
+                    <TextView
+                        android:id="@+id/date23"
+                        android:layout_width="137dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@color/colorMain"
+                        android:gravity="center_vertical"
+                        android:text="@string/date23"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="24sp" />
+
+                    <TextView
+                        android:id="@+id/points23"
+                        android:layout_width="136dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@color/colorMain"
+                        android:gravity="center_vertical"
+                        android:text="@string/points23"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="24sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="#FFFFFF"
+                    android:orientation="horizontal"
+                    android:paddingStart="0dp"
+                    android:paddingTop="2dp"
+                    android:paddingEnd="2dp"
+                    android:paddingBottom="2dp">
+
+                    <TextView
+                        android:id="@+id/numero22"
+                        android:layout_width="54dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:text="@string/numero22"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorMain"
+                        android:textSize="24sp" />
+
+                    <TextView
+                        android:id="@+id/date22"
+                        android:layout_width="137dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@color/colorMain"
+                        android:gravity="center_vertical"
+                        android:text="@string/date22"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="24sp" />
+
+                    <TextView
+                        android:id="@+id/points22"
+                        android:layout_width="136dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@color/colorMain"
+                        android:gravity="center_vertical"
+                        android:text="@string/points22"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="24sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
