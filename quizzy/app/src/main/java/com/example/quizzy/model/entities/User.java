@@ -29,8 +29,6 @@ public class User {
     private String password;
 
     @Ignore
-    private String confirmPassword;
-
     public User(){
     }
 
@@ -65,6 +63,14 @@ public class User {
 
     public void setSurname(String surname) {
         this.surname = surname;
+    }
+
+    public User(String name,String surname,String email,String password,Date birthDate){
+        this.name=name;
+        this.surname=surname;
+        this.email=email;
+        this.password= password;
+        this.birthDate=birthDate;
     }
 
     public String getEmail() { return email; }

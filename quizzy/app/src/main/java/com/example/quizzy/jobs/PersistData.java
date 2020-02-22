@@ -2,11 +2,13 @@ package com.example.quizzy.jobs;
 
 import android.util.Log;
 
+import com.example.quizzy.QuizzyApplication;
 import com.example.quizzy.model.Repository.UserDatabase;
 import com.example.quizzy.model.entities.Category;
 import com.example.quizzy.model.entities.Question;
 import com.example.quizzy.model.entities.ReponseFausse;
 import com.example.quizzy.model.entities.ReponseVraie;
+import com.example.quizzy.model.entities.User;
 import com.example.quizzy.pojo.ApiPayload;
 import com.example.quizzy.pojo.FromTriviaApi;
 
@@ -15,30 +17,31 @@ import java.util.ArrayList;
 
 
 public class PersistData {
-    private static  int i=0;
-    private static  int j=0;
 
-    public static void toDatabase(ArrayList<? extends ApiPayload> quizzList, UserDatabase db){
+     static UserDatabase db= QuizzyApplication.getDb();
+
+    public static void quizzInfoToDatabase(ArrayList<? extends ApiPayload> quizzList){
 
         ArrayList<FromTriviaApi> list= (ArrayList<FromTriviaApi>)quizzList;
 
         //db.clearAllTables();
         for(FromTriviaApi quizz: list){
-            mayAddSomeQuestions(quizz,db);
+            mayAddSomeQuestions(quizz);
         }
     }
 
-    private static  void mayAddSomeQuestions(FromTriviaApi quizz, UserDatabase db){ // on ajoute des catégories, questions dans la base de donnée
+    private static  void mayAddSomeQuestions(FromTriviaApi quizz){ // on ajoute des catégories, questions dans la base de donnée
 
 
-        if(checkIfCategoryAlreadyExist(quizz.category,db)){
+        if(checkIfCategoryAlreadyExist(quizz.category)){
             System.out.println("JE PASSE EN HAUT");
-            if(!checkIfQuestionAlreadyExist(quizz.question,db)){
-                Integer id_c= db.CategoryDao().getCategoryBylibelle(quizz.category).getId_category();
-                Log.d("ID_CATEG",id_c.toString());
-                db.QuestionDao().insertQuestion(new Question(quizz.question,quizz.difficulty,id_c));
-                Integer id_q= db.QuestionDao().getQuestionBylibelle(quizz.question).getId_question();
+            if(!checkIfQuestionAlreadyExist(quizz.question)){
+                Category category = db.CategoryDao().getCategoryBylibelle(quizz.category);
+                Integer id_c = category.getId_category();
 
+                db.QuestionDao().insertQuestion(new Question(quizz.question,quizz.difficulty,id_c));
+                Question question= db.QuestionDao().getQuestionBylibelle(quizz.question);
+                Integer id_q= question.getId_question();
                 db.ReponseVraieDao().insertAResponse(new ReponseVraie(quizz.correct_answers,id_q));
 
                 for( String s: quizz.incorrect_answers){
@@ -69,16 +72,20 @@ public class PersistData {
 
     }
 
-    private static boolean checkIfCategoryAlreadyExist(String category,UserDatabase db){  // on check si la catégorie existe dans la BDD
+    public static void userInfoTodatabase(User user){
+        db.UserDao().insertUser(user);
+    }
 
-        Category c= db.CategoryDao().checkIfCategory(category);
+    private static boolean checkIfCategoryAlreadyExist(String category){  // on check si la catégorie existe dans la BDD
+
+        Category c= db.CategoryDao().getCategoryBylibelle(category);
         if(c != null)
             return true;
         return false;
     }
-    private static boolean checkIfQuestionAlreadyExist(String data,UserDatabase db){   // on check si la question existe dans la BDD
+    private static boolean checkIfQuestionAlreadyExist(String data){   // on check si la question existe dans la BDD
 
-        Question q= db.QuestionDao().checkIfQuestion(data);
+        Question q= db.QuestionDao().getQuestionBylibelle(data);
         if(q != null)
             return true;
         return false;

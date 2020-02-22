@@ -46,8 +46,7 @@ public interface QuestionDao {
     @Query("SELECT * FROM Question WHERE id_question= :libelle")
     Question getQuestionBylibelle(String libelle);
 
-    @Query("SELECT * FROM Question WHERE libelleQuestion= :libelle")
-    Question checkIfQuestion(String libelle);
+
 
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

@@ -20,4 +20,6 @@
     <dimen name="question_card_corner_radius">10dp</dimen>
     <dimen name="question_layout_padding">20dp</dimen>
     <dimen name="question_marginV">15dp</dimen>
+
+    <dimen name="round_corner_size">6dp</dimen>
 </resources>

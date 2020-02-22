@@ -8,13 +8,34 @@
     <string name="title_activity_login">Sign in</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in">Register</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="welcome">"Welcome !"</string>
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <string name="login_button">"se connecter</string>
 
+    <!-- REGISTER -->
+    <string name="register_name">nom</string>
+    <string name="register_surname">prénom</string>
+    <string name="register_email">email</string>
+    <string name="register_birthDate">date de naissance</string>
+    <string name="register_password">mot de passe</string>
+    <string name="register_confirmPassword">confirmer mot de passe</string>
+    <string name="register_button">Valider</string>
+    <string name="register_RGPD_check">Accepter les conditions d\'utilisation</string>
+
+    <!-- MENU -->
+    <string name="action_logout">Logout</string>
+
+    <!-- LOGIN -->
+    <string name="loginHint">Your Twitter login</string>
+    <string name="passwordHint">Your Twitter password</string>
+    <string name="login">Sign in</string>
+    <string name="error_no_login">Empty login !</string>
+    <string name="error_no_password">Empty password !</string>
+    <string name="action_settings">Title!</string>
 
     <!-- accueil strings -->
     <string name="accueil">Accueil</string>

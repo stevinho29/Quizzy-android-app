@@ -16,14 +16,14 @@ public class PreferenceUtils {
         return QuizzyApplication.getContext().getSharedPreferences(Constants.Preferences.SHARED_PREFERENCES_FILE_NAME, Context.MODE_PRIVATE);
     }
 
-    public static String getLogin(){
+    public static String getUsername(){
         final SharedPreferences prefs = getSharedPreferences();
         return prefs.getString(Constants.Preferences.PREF_LOGIN, null);
     }
 
-    public static void setLogin(String login){
+    public static void setUsername(String username){
         final SharedPreferences prefs = getSharedPreferences();
-        prefs.edit().putString(Constants.Preferences.PREF_LOGIN, login).commit();
+        prefs.edit().putString(Constants.Preferences.PREF_LOGIN, username).commit();
     }
 
     public static String getPassword(){
@@ -34,5 +34,9 @@ public class PreferenceUtils {
     public static void setPassword(String password){
         final SharedPreferences prefs = getSharedPreferences();
         prefs.edit().putString(Constants.Preferences.PREF_PASSWORD, password).commit();
+    }
+    public static void deletePrefs(){
+        final SharedPreferences prefs = getSharedPreferences();
+        prefs.edit().clear().commit();
     }
 }
