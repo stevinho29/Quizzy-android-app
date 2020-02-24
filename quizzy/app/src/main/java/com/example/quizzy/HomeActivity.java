@@ -1,6 +1,7 @@
 package com.example.quizzy;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
@@ -19,13 +20,17 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
 
-        /*List<Category> categories = new ArrayList<>();
+        List<Category> categories = new ArrayList<>();
         Category category = new Category("e", "e", "e", "e", "e", new ArrayList<>());
-
         categories.add(category);
+        categories.add(category);
+        categories.add(category);
+
         CategoryAdapter adapter = new CategoryAdapter(categories);
         RecyclerView rv = findViewById(R.id.home_recycler);
-        rv.setAdapter(adapter);*/
+        rv.setAdapter(adapter);
+        // Set layout manager to position the items
+        rv.setLayoutManager(new LinearLayoutManager(this));
 
     }
 }
