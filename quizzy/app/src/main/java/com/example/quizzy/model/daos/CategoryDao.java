@@ -22,13 +22,11 @@ public interface CategoryDao {
     @Query("SELECT * FROM Category ")
     List<CategoryAndQuestions> getCategoryAndQuestions();
 
-    @Query("SELECT * FROM category WHERE libelleCategory= :libelle")
-    Category checkIfCategory(String libelle);
 
     @Query("SELECT * FROM category WHERE id_category= :id")
     Category getCategoryById(Integer id);
 
-    @Query("SELECT * FROM category WHERE id_category= :libelle")
+    @Query("SELECT * FROM category WHERE libelleCategory= :libelle")
     Category getCategoryBylibelle(String libelle);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

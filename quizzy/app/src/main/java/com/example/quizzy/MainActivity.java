@@ -6,6 +6,8 @@ import androidx.room.Room;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.quizzy.api.RetrofitClientInstance;
@@ -17,6 +19,7 @@ import com.example.quizzy.model.entities.Question;
 import com.example.quizzy.pojo.IncomingJson;
 import com.example.quizzy.ui.fragments.QuestionsFragment;
 import com.example.quizzy.utils.Constants;
+import com.example.quizzy.utils.PreferenceUtils;
 
 import java.util.List;
 
@@ -31,13 +34,15 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
+    UserDatabase db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
-        final UserDatabase db = Room.databaseBuilder(this, UserDatabase.class, "quizzy_bdd.db")
-                .build();
+        db = QuizzyApplication.getDb();
 
         final Intent intent = getIntent();
         if(null!= intent){
@@ -45,7 +50,12 @@ public class MainActivity extends AppCompatActivity {
             if(null!= extras )
             {
                 final String  login = extras.getString(Constants.Login.EXTRA_LOGIN);
-                getSupportActionBar().setSubtitle(login);
+                try {
+                    getSupportActionBar().setSubtitle(login);
+                }catch (NullPointerException e){
+                    e.printStackTrace();
+                }
+
 
             }
         }
@@ -55,50 +65,12 @@ public class MainActivity extends AppCompatActivity {
         }*/
 
 
+       /* ExecutorService executor = Executors.newSingleThreadExecutor();
 
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-        /*executor.submit(new Runnable() {
-            @Override
-            public void run() {
-
-                User user= new User();
-                user.setId_user(1);
-                user.setName("aName");
-                user.setSurname("aSurname");
-                user.setBirthDate(new Date());
-
-
-                db.UserDao().insertUser(user);
-            }
-        });*/
-       /* executor.submit(new Runnable() {
-            @Override
-            public void run() {
-
-                Category category= new Category(1,"Drame");
-                Category c1= new Category(2,"Horrorr");
-                Category c2= new Category(3,"Animé");
-                db.CategoryDao().insertCategory(category);
-                db.CategoryDao().insertCategory(c1);
-                db.CategoryDao().insertCategory(c2);
-            }
-        });*/
-        /*executor.submit(new Runnable() {
-            @Override
-            public void run() {
-
-                Question question= new Question(1,"quel est le meilleur filme Drama",1);
-                Question q1= new Question(2,"Le drame est il la meilleure des choses",1);
-                Question q2= new Question(3,"Don't know what to say",2);
-                db.QuestionDao().insertQuestion(question);
-                db.QuestionDao().insertQuestion(q1);
-                db.QuestionDao().insertQuestion(q2);
-            }
-        });*/
         //RetrieveQuizzData quizz= new RetrieveQuizzData();
         //quizz.execute();
 
-        /*Create handle for the RetrofitInstance interface*/
+        *//*Create handle for the RetrofitInstance interface*//*
         GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
         Call<IncomingJson> call = service.getApiQuizz();
         call.enqueue(new Callback<IncomingJson>() {
@@ -109,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void run() {
 
-                            PersistData.toDatabase(response.body().results,db);
+                            PersistData.quizzInfoToDatabase(response.body().results,db);
                         }
                     });
 
@@ -139,7 +111,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 Category category = db.CategoryDao().getCategoryById(1);
-                System.out.println("DDDDDDDDDje teste"+category.getLibelleCategory());
                 Question question = db.QuestionDao().getSpecificQuestion(1);
                 List<Question> listQuestion = db.QuestionDao().getAllQuestion();
                 for(Question q: listQuestion){
@@ -147,9 +118,34 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("Quizz Questions",q.getLibelleQuestion());
                 }
 
-                System.out.println("Category: "+category.getLibelleCategory()+" id categ: "+category.getId_category());
-                System.out.println("question associée"+question.getLibelleQuestion());
+
             }
-        });
+        });*/
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //action de logout
+        if (id == R.id.actionLogout) {
+            PreferenceUtils.setUsername(null);
+            finish();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

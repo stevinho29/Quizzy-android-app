@@ -10,8 +10,6 @@ import androidx.room.Update;
 
 import com.example.quizzy.model.entities.User;
 import com.example.quizzy.model.entities.UserWithParties;
-import com.example.quizzy.pojo.UserBasic;
-import com.example.quizzy.pojo.UserLogInfo;
 
 import java.util.List;
 
@@ -24,13 +22,8 @@ public interface UserDao {
     @Query("SELECT * FROM user WHERE name= :name ")
     List<User> getAUser(String name);
 
-    @Query("SELECT name, surname FROM user WHERE email= :email")
-    List<UserBasic> loadFullName(String email);
-
-    @Query("SELECT email, password FROM user WHERE email= :email")
-    List<UserLogInfo> loadLogInfo(String email);
-
-
+    @Query("SELECT * FROM User where email= :email and password= :password ")
+    User getAUser(String email, String password);
 
     @Transaction
     @Query("SELECT * FROM User")

@@ -42,6 +42,7 @@ public abstract class UserDatabase extends RoomDatabase{
 
         public abstract IndiceDao IndiceDao();
 
+
     }
 
 

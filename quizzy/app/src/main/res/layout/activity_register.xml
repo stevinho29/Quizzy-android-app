@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorHeader"
+    tools:context=".QuizzyLoginActivity">
+
+
+    <EditText
+        android:id="@+id/nameEdit"
+        android:layout_width="239dp"
+        android:layout_height="33dp"
+        android:background="@drawable/white_round_corners"
+        android:hint="@string/register_name"
+        android:textColorHint="@color/colorPrimary"
+        android:inputType="textPersonName"
+        android:textAlignment="textStart"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.103"
+        android:autofillHints=""></EditText>
+
+    <EditText
+        android:id="@+id/surnameEdit"
+        android:layout_width="239dp"
+        android:layout_height="33dp"
+        android:background="@color/colorWhite"
+        android:hint="@string/register_surname"
+        android:textColorHint="@color/colorPrimary"
+        android:inputType="textPersonName"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.189"
+        android:importantForAutofill="no"></EditText>
+
+    <EditText
+        android:id="@+id/emailEdit"
+        android:layout_width="239dp"
+        android:layout_height="33dp"
+        android:background="@color/colorWhite"
+        android:textColorHint="@color/colorPrimary"
+        android:hint="@string/register_email"
+        android:inputType="textEmailAddress"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.263"
+        android:importantForAutofill="no" />
+
+    <TextView
+        android:id="@+id/birthEdit"
+        android:layout_width="239dp"
+        android:layout_height="33dp"
+        android:background="@color/colorWhite"
+        android:textColor="@color/colorPrimary"
+        android:hint="@string/register_birthDate"
+        android:textColorHint="@color/colorPrimary"
+        android:inputType="date"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.346"></TextView>
+
+    <EditText
+        android:id="@+id/passwordEdit"
+        android:layout_width="239dp"
+        android:layout_height="33dp"
+        android:background="@color/colorWhite"
+        android:hint="@string/register_password"
+        android:inputType="textPassword"
+        android:textColorHint="@color/colorPrimary"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.435"
+        android:autofillHints="" tools:targetApi="o"></EditText>
+
+    <EditText
+        android:id="@+id/confirmPasswordEdit"
+        android:layout_width="239dp"
+        android:layout_height="33dp"
+        android:background="@color/colorWhite"
+        android:hint="@string/register_confirmPassword"
+        android:inputType="textPassword"
+        android:textColorHint="@color/colorPrimary"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.517"
+        android:autofillHints=""></EditText>
+
+    <Button
+        android:id="@+id/registerButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/register_button"
+        android:background="@color/colorViolet"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.758"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.737" />
+
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="240dp"
+        android:layout_height="46dp"
+        android:background="@color/colorViolet"
+        android:text="@string/register_RGPD_check"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.511"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.621" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="INSCRIPTION"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.037" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,51 +3,127 @@ package com.example.quizzy;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.quizzy.model.Repository.UserDatabase;
 import com.example.quizzy.utils.Constants;
 import com.example.quizzy.utils.PreferenceUtils;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+import static java.lang.Thread.sleep;
+
 public class QuizzyLoginActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private EditText mLoginEdit;
+    private ProgressBar progressBar;
+    private EditText mUserEdit;
     private EditText mPasswordEdit;
+    private Button register;
+    UserDatabase db= QuizzyApplication.getDb();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quizzy_login);
 
-        //mLoginEdit = (EditText) findViewById(R.id.loginEditText);
-        //mPasswordEdit =  findViewById(R.id.passwordEditText);
+        mUserEdit =  findViewById(R.id.usernameEditText);
+        mPasswordEdit =  findViewById(R.id.loginEditText);
+        register =  findViewById(R.id.signinButton);
 
-        //findViewById(R.id.LoginButton).setOnClickListener(this);
+        findViewById(R.id.LoginButton).setOnClickListener(this);
+        register.setOnClickListener(this);
+        try {
+            final String username = PreferenceUtils.getUsername();
+            if(!TextUtils.isEmpty(username)) {
+                Toast.makeText(QuizzyApplication.getContext(),"Connected",Toast.LENGTH_SHORT).show();
+                startActivity(getHomeIntent(username));
+            }
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
 
-        //final String login = PreferenceUtils.getLogin();
-        //if(!TextUtils.isEmpty(login))
-          //  startActivity(getHomeIntent(login));
+
     }
 
     @Override
     public void onClick(View v) {
-        if(TextUtils.isEmpty(mLoginEdit.getText()))
-        {
-            Toast.makeText(this,"EmptyLogin",Toast.LENGTH_SHORT)
-                    .show();
-            return;
+
+        progressBar= findViewById(R.id.indeterminateBar);
+        progressBar.setVisibility(View.VISIBLE);
+        if(v.getId()== R.id.LoginButton) {
+            if (TextUtils.isEmpty(mUserEdit.getText())) {
+                progressBar.setVisibility(View.INVISIBLE);
+                Toast.makeText(this, "Empty Username", Toast.LENGTH_SHORT)
+                        .show();
+                return;
+            }
+            String username = mUserEdit.getText().toString();
+            if (TextUtils.isEmpty(mPasswordEdit.getText())) {
+                progressBar.setVisibility(View.INVISIBLE);
+                Toast.makeText(this, "Empty Password", Toast.LENGTH_SHORT)
+                        .show();
+                return;
+            }
+            String password = mPasswordEdit.getText().toString();
+
+
+            ExecutorService executor = Executors.newSingleThreadExecutor();
+            executor.submit(new Runnable() {
+
+                @Override
+                public void run() {
+
+                    if (db.UserDao().getAUser(username, password) == null) {
+
+                        try {
+                            sleep(500);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                progressBar.setVisibility(View.INVISIBLE);
+                                Toast.makeText(QuizzyApplication.getContext(), "Connected", Toast.LENGTH_SHORT).show();
+                                //referenceUtils.setUsername(username);
+                                startActivity(getHomeIntent(username));
+                            }
+                        });
+
+                    } else {
+                        try {
+                            sleep(500);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                progressBar.setVisibility(View.INVISIBLE);
+                                Toast.makeText(QuizzyApplication.getContext(), "You seems not to be registered yet...please sign in", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                        });
+
+                    }
+                }
+            });
         }
-        String login = mLoginEdit.getText().toString();
-        if(TextUtils.isEmpty(mPasswordEdit.getText()))
-        {
-            Toast.makeText(this,"EmptyPassword",Toast.LENGTH_SHORT)
-                    .show();
-            return;
+        if(v.getId() == R.id.signinButton){
+            progressBar.setVisibility(View.INVISIBLE);
+            startActivity(getRegisterIntent());
         }
-        PreferenceUtils.setLogin(login);
-        startActivity(getHomeIntent(login));
+
+
     }
     private Intent getHomeIntent(String userName){
         final Intent homeIntent = new Intent(this, MainActivity.class);
@@ -55,5 +131,11 @@ public class QuizzyLoginActivity extends AppCompatActivity implements View.OnCli
         extras.putString(Constants.Login.EXTRA_LOGIN, userName);
         homeIntent.putExtras(extras);
         return homeIntent;
+    }
+
+
+    private Intent getRegisterIntent(){
+        final Intent registerIntent= new Intent(this,RegisterActivity.class);
+        return registerIntent;
     }
 }
