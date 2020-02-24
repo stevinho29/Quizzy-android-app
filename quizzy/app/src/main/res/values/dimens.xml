@@ -22,4 +22,5 @@
     <dimen name="question_marginV">15dp</dimen>
 
     <dimen name="round_corner_size">6dp</dimen>
+    <dimen name="login_corner_radius">25dp</dimen>
 </resources>

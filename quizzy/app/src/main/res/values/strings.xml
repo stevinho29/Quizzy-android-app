@@ -3,18 +3,18 @@
 
 
     <!-- log strings -->
-    <string name="username">username</string>
-    <string name="password">password</string>
-    <string name="title_activity_login">Sign in</string>
+    <string name="username">Pseudo</string>
+    <string name="password">Mot de passe</string>
+    <string name="title_activity_login">Connexion</string>
     <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome !"</string>
-    <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be >5 characters</string>
-    <string name="login_failed">"Login failed"</string>
-    <string name="login_button">"se connecter</string>
+    <string name="prompt_password">Mot de passe</string>
+    <string name="action_sign_in">Inscription</string>
+    <string name="action_sign_in_short">Connexion</string>
+    <string name="welcome">"Bienvenue !"</string>
+    <string name="invalid_username">Ce pseudo n\'est pas valide !</string>
+    <string name="invalid_password">Le mot de passe doit contenir au moins 5 caractères !</string>
+    <string name="login_failed">"Connexion impossible"</string>
+    <string name="login_button">"Se connecter</string>
 
     <!-- REGISTER -->
     <string name="register_name">nom</string>
