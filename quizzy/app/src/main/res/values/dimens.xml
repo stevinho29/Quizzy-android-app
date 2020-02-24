@@ -23,4 +23,5 @@
 
     <dimen name="round_corner_size">6dp</dimen>
     <dimen name="login_corner_radius">25dp</dimen>
+    <dimen name="header_height">60dp</dimen>
 </resources>

@@ -1,11 +1,13 @@
 package com.example.quizzy;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,6 +35,8 @@ public class QuizzyLoginActivity extends AppCompatActivity implements View.OnCli
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quizzy_login);
+        Toolbar myToolbar = findViewById(R.id.login_toolbar);
+        setSupportActionBar(myToolbar);
 
         mUserEdit =  findViewById(R.id.usernameEditText);
         mPasswordEdit =  findViewById(R.id.loginEditText);
@@ -137,5 +141,14 @@ public class QuizzyLoginActivity extends AppCompatActivity implements View.OnCli
     private Intent getRegisterIntent(){
         final Intent registerIntent= new Intent(this,RegisterActivity.class);
         return registerIntent;
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
     }
 }

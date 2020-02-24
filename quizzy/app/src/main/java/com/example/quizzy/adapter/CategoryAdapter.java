@@ -18,9 +18,9 @@ import com.example.quizzy.pojo.Category;
 
 import java.util.List;
 
-public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class CategoryAdapter/* extends RecyclerView.Adapter<RecyclerView.ViewHolder>*/ {
 
-    private List<Category> mCategories;
+    /*private List<Category> mCategories;
     private final LayoutInflater mInflater;
 
     public CategoryAdapter(List<Category> categories) {
@@ -32,7 +32,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         return null != mCategories ? mCategories.get(i): null;
     }
 
-    @NonNull
+    /*@NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // CREATE VIEW HOLDER AND INFLATING ITS XML LAYOUT
@@ -58,7 +58,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         return null != mCategories ? mCategories.size():0;
     }
 
-    /*@Override
+    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // If we don't have any convertView to reuse, inflate one
         if (null == convertView){
@@ -79,7 +79,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         //ajouter après @string/category cad @string/geographie etc... dans les ressources
 
         return convertView;
-    }*/
+    }
 
     @SuppressLint("ResourceAsColor")
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -126,5 +126,5 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             headCard = view.findViewById(R.id.headCard);
             footCard = view.findViewById(R.id.footCard);
         }
-    }
+    }*/
 }

@@ -19,13 +19,13 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
 
-        List<Category> categories = new ArrayList<>();
+        /*List<Category> categories = new ArrayList<>();
         Category category = new Category("e", "e", "e", "e", "e", new ArrayList<>());
 
         categories.add(category);
         CategoryAdapter adapter = new CategoryAdapter(categories);
         RecyclerView rv = findViewById(R.id.home_recycler);
-        rv.setAdapter(adapter);
+        rv.setAdapter(adapter);*/
 
     }
 }
