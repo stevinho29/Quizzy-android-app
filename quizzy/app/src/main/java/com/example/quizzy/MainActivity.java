@@ -147,7 +147,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.guestButton){
-            startActivity(getGuestIntent());
+            startActivity(getHomeIntent());
         }
         else{
             startActivity(getLoginIntent());
@@ -160,5 +160,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Intent getGuestIntent(){
         final Intent GuestIntent = new Intent(this, GuestActivity.class);
         return GuestIntent;
+    }
+    private Intent getHomeIntent(){
+        final Intent HomeIntent = new Intent(this, HomeActivity.class);
+        return HomeIntent;
     }
 }

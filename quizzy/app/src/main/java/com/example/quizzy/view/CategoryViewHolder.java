@@ -8,10 +8,11 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.quizzy.R;
-import com.example.quizzy.pojo.Category;
+import com.example.quizzy.model.entities.Category;
 
 public class CategoryViewHolder extends RecyclerView.ViewHolder {
 
+    public static int numero = 0;
     public CardView cardView;
     public TextView headTextView;
     public TextView footTextView;
@@ -24,9 +25,19 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void updateWithCategory(Category category){
-        this.headTextView.setText(category.category);
-        this.footTextView.setText("@string/foot_text_" + category.category);
-        //ajouter après @string/category cad @string/geographie etc... dans les ressources
+        this.headTextView.setText(category.getLibelleCategory());
+        this.footTextView.setText("Testez vos connaissances en " + category.getLibelleCategory());
         //régler la couleur
+        numero++;
+        switch (numero){
+            case(1): cardView.setCardBackgroundColor(0xffFBC200);
+                break;
+            case(2): cardView.setCardBackgroundColor(0xffFF0065);
+                break;
+            default:
+                cardView.setCardBackgroundColor(0xff2B0050);
+                numero = 0;
+                break;
+        }
     }
 }
