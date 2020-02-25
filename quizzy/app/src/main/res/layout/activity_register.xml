@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorMain"
-    tools:context=".QuizzyLoginActivity">
+    tools:context=".LoginActivity">
 
 
     <TextView
@@ -21,6 +21,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.037" />
+
+    <EditText
+        android:id="@+id/pseudoEdit"
+        android:layout_width="239dp"
+        android:layout_height="33dp"
+        android:hint="@string/register_pseudo"
+        android:textAlignment="viewStart"
+        android:textColorHint="@color/colorWhite"
+        android:textSize="18sp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.159" />
 
     <EditText
         android:id="@+id/emailEdit"

@@ -1,13 +1,14 @@
 package com.example.quizzy;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.quizzy.api.RetrofitClientInstance;
@@ -16,13 +17,12 @@ import com.example.quizzy.jobs.PersistData;
 import com.example.quizzy.model.Repository.UserDatabase;
 import com.example.quizzy.model.entities.Category;
 import com.example.quizzy.model.entities.Question;
+import com.example.quizzy.model.entities.ReponseFausse;
+import com.example.quizzy.model.entities.User;
 import com.example.quizzy.pojo.IncomingJson;
-import com.example.quizzy.ui.fragments.QuestionsFragment;
-import com.example.quizzy.utils.Constants;
 import com.example.quizzy.utils.PreferenceUtils;
 
 import java.util.List;
-
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -31,10 +31,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
+public class MainActivity extends AppCompatActivity implements View.OnClickListener { // première activité de l'application
 
-public class MainActivity extends AppCompatActivity {
-
-    UserDatabase db;
+    private Button guest;
+    private  Button user;
+    private UserDatabase db= QuizzyApplication.getDb();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,35 +43,22 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        db = QuizzyApplication.getDb();
+        db= QuizzyApplication.getDb();
+        guest= findViewById(R.id.guestButton);
+        user= findViewById(R.id.userButton);
 
-        final Intent intent = getIntent();
-        if(null!= intent){
-            final Bundle extras = intent.getExtras();
-            if(null!= extras )
-            {
-                final String  login = extras.getString(Constants.Login.EXTRA_LOGIN);
-                try {
-                    getSupportActionBar().setSubtitle(login);
-                }catch (NullPointerException e){
-                    e.printStackTrace();
-                }
+        guest.setOnClickListener(this);
+        user.setOnClickListener(this);
+
+        PreferenceUtils.deletePrefs();
 
 
-            }
-        }
-       /* if(savedInstanceState==null)
-        {
-            getSupportFragmentManager().beginTransaction().add(R.id.container,new QuestionsFragment()).commit();
-        }*/
-
-
-       /* ExecutorService executor = Executors.newSingleThreadExecutor();
+        ExecutorService executor = Executors.newSingleThreadExecutor();
 
         //RetrieveQuizzData quizz= new RetrieveQuizzData();
         //quizz.execute();
 
-        *//*Create handle for the RetrofitInstance interface*//*
+        ///*Create handle for the RetrofitInstance interface*//*
         GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
         Call<IncomingJson> call = service.getApiQuizz();
         call.enqueue(new Callback<IncomingJson>() {
@@ -81,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void run() {
 
-                            PersistData.quizzInfoToDatabase(response.body().results,db);
+                            PersistData.quizzInfoToDatabase(response.body().results);
                         }
                     });
 
@@ -110,42 +98,67 @@ public class MainActivity extends AppCompatActivity {
         executor.submit(new Runnable() {
             @Override
             public void run() {
-                Category category = db.CategoryDao().getCategoryById(1);
+
                 Question question = db.QuestionDao().getSpecificQuestion(1);
-                List<Question> listQuestion = db.QuestionDao().getAllQuestion();
-                for(Question q: listQuestion){
+                Log.d("Quizz Question",question.getLibelleQuestion());
+                //List<Question> listQuestion = db.QuestionDao().getAllQuestion();
+                /*for(Question q: questionList){
 
                     Log.d("Quizz Questions",q.getLibelleQuestion());
+                }*/
+
+
+            }
+        });
+        executor.submit(new Runnable() {
+            @Override
+            public void run() {
+
+
+                List<User> listUser = db.UserDao().getAllUser();
+                for(User u: listUser){
+
+                    Log.d("Quizz User",u.getName());
                 }
 
 
             }
-        });*/
+        });
+        executor.submit(new Runnable() {
+            @Override
+            public void run() {
+
+
+                List<ReponseFausse> list= db.ReponseFausseDao().getAllResponseFalseForAQuestion(1);
+                if(list.size() != 0){
+                for(ReponseFausse p: list){
+
+                    Log.d("Quizz reponse",p.getLibelleReponseFausse());
+                }}
+
+
+            }
+        });
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
+
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //action de logout
-        if (id == R.id.actionLogout) {
-            PreferenceUtils.setUsername(null);
-            finish();
-            return true;
+    public void onClick(View v) {
+        if(v.getId() == R.id.guestButton){
+            startActivity(getGuestIntent());
         }
-
-        return super.onOptionsItemSelected(item);
+        else{
+            startActivity(getLoginIntent());
+        }
+    }
+    private Intent getLoginIntent(){
+        final Intent LoginIntent = new Intent(this, LoginActivity.class);
+        return LoginIntent;
+    }
+    private Intent getGuestIntent(){
+        final Intent GuestIntent = new Intent(this, GuestActivity.class);
+        return GuestIntent;
     }
 }

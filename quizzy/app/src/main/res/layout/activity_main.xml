@@ -8,15 +8,26 @@ android:layout_height="match_parent"
     android:background="@color/design_default_color_background"
 tools:context=".MainActivity">
 
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <Button
+        android:id="@+id/guestButton"
+        android:layout_width="195dp"
+        android:layout_height="51dp"
+        android:text="@string/guest"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.462"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/coupe" />
+        app:layout_constraintVertical_bias="0.308" />
+
+    <Button
+        android:id="@+id/userButton"
+        android:layout_width="199dp"
+        android:layout_height="55dp"
+        android:text="@string/user"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.471"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

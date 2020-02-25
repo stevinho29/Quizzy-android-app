@@ -36,6 +36,6 @@ public class FromTriviaApi extends ApiPayload {
     public  String toString(){
 
         return "category: "+this.category+" type: "+this.type+" difficulty: "+this.difficulty+" question: "+this.question
-                +" correct_answers: "+this.correct_answers;
+                +" correct_answers: "+this.correct_answers+"incorrect_answers : "+this.incorrect_answers.toString();
     }
 }

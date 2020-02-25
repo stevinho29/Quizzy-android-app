@@ -29,15 +29,19 @@ import com.example.quizzy.model.entities.User;
 import com.example.quizzy.utils.Constants;
 
 import com.example.quizzy.jobs.RegisterValidateForm;
+import com.example.quizzy.utils.PreferenceUtils;
 
 
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener,View.OnTouchListener, DatePickerDialog.OnDateSetListener  {
 
     UserDatabase db;
+    private EditText pseudo;
     private EditText name;
     private EditText surname;
     private EditText email;
@@ -54,7 +58,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.activity_register);
 
         db = QuizzyApplication.getDb();
-
+        pseudo = findViewById(R.id.pseudoEdit);
        name= findViewById(R.id.nameEdit);
        surname= findViewById(R.id.surnameEdit);
        email= findViewById(R.id.emailEdit);
@@ -74,6 +78,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View v) {
 
+
+            if (TextUtils.isEmpty(pseudo.getText())) {
+                name.setError("le champ pseudo est vide");
+                return;
+            }
             if (TextUtils.isEmpty(name.getText())) {
                 name.setError("le champ nom est vide");
                 return;
@@ -117,19 +126,29 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
             User user= new User(name.getText().toString(),surname.getText().toString(),email.getText().toString(),password.getText().toString(),date);
             try{
-                PersistData.userInfoTodatabase(user);
+                ExecutorService executor = Executors.newSingleThreadExecutor();
+                executor.submit(new Runnable() {
+                    @Override
+                    public void run() {
+                        PersistData.userInfoTodatabase(user);
+                    }
+                });
+
             }catch (Exception e){
                 e.printStackTrace();
+
+                    Toast.makeText(QuizzyApplication.getContext(),"adresse mail et/ou pseudo deja utilisé",Toast.LENGTH_SHORT).show();
+
             }
             Toast.makeText(QuizzyApplication.getContext(), "Registered.....", Toast.LENGTH_SHORT).show();
-            //referenceUtils.setUsername(username);
+            PreferenceUtils.setUsername(pseudo.getText().toString());
             clearAllFields();
-            startActivity(getHomeIntent(name.getText().toString()));
+            startActivity(getUserIntent(pseudo.getText().toString()));
 
     }
 
-    private Intent getHomeIntent(String userName){
-        final Intent homeIntent = new Intent(this, MainActivity.class);
+    private Intent getUserIntent(String userName){
+        final Intent homeIntent = new Intent(this, UserActivity.class);
         final Bundle extras = new Bundle();
         extras.putString(Constants.Login.EXTRA_LOGIN, userName);
         homeIntent.putExtras(extras);

@@ -43,7 +43,7 @@ public interface QuestionDao {
     @Query("SELECT * FROM Question WHERE id_question= :id")
     Question getQuestionById(Integer id);
 
-    @Query("SELECT * FROM Question WHERE id_question= :libelle")
+    @Query("SELECT * FROM Question WHERE libelleQuestion= :libelle")
     Question getQuestionBylibelle(String libelle);
 
 

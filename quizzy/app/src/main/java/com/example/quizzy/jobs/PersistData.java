@@ -13,6 +13,7 @@ import com.example.quizzy.pojo.ApiPayload;
 import com.example.quizzy.pojo.FromTriviaApi;
 
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 
@@ -72,8 +73,17 @@ public class PersistData {
 
     }
 
-    public static void userInfoTodatabase(User user){
-        db.UserDao().insertUser(user);
+    public static void userInfoTodatabase(User user)  {
+            db.UserDao().insertUser(user);
+
+    }
+
+    public  static boolean authentication(String pseudo, String password){
+        User user= db.UserDao().getAutehenticatedUser(pseudo,password);
+        if(user != null)
+            return true;
+        else
+            return false;
     }
 
     private static boolean checkIfCategoryAlreadyExist(String category){  // on check si la catégorie existe dans la BDD
