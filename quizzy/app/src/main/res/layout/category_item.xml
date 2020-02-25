@@ -52,7 +52,7 @@
                 android:id="@+id/footCard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/foot_text_geographie"
+                android:text="@string/foot_text_geography"
                 android:textAlignment="center"
                 android:textColor="@color/colorWhite"
                 android:textSize="24sp"

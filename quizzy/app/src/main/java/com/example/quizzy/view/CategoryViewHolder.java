@@ -25,7 +25,7 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
 
     public void updateWithCategory(Category category){
         this.headTextView.setText(category.category);
-        this.footTextView.setText("@string/" + category.category);
+        this.footTextView.setText("@string/foot_text_" + category.category);
         //ajouter après @string/category cad @string/geographie etc... dans les ressources
         //régler la couleur
     }
