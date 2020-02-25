@@ -17,6 +17,7 @@
     <string name="login_button">"Se connecter</string>
 
     <!-- REGISTER -->
+    <string name="register_pseudo">pseudo</string>
     <string name="register_name">nom</string>
     <string name="register_surname">prénom</string>
     <string name="register_email">email</string>
@@ -25,6 +26,10 @@
     <string name="register_confirmPassword">confirmer mot de passe</string>
     <string name="register_button">Valider</string>
     <string name="register_RGPD_check">Accepter les conditions d\'utilisation</string>
+
+    <!-- first app page strings -->
+    <string name="guest">Invité</string>
+    <string name="user">Utilisateur</string>
 
     <!-- MENU -->
     <string name="action_logout">Logout</string>

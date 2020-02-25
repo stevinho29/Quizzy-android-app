@@ -23,7 +23,7 @@ import java.util.concurrent.Executors;
 
 import static java.lang.Thread.sleep;
 
-public class QuizzyLoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ProgressBar progressBar;
     private EditText mUserEdit;
@@ -38,7 +38,7 @@ public class QuizzyLoginActivity extends AppCompatActivity implements View.OnCli
         Toolbar myToolbar = findViewById(R.id.login_toolbar);
         setSupportActionBar(myToolbar);
 
-        mUserEdit =  findViewById(R.id.usernameEditText);
+        mUserEdit =  findViewById(R.id.usernameEditText); // le username  correspond au pseudo de l'utilisateur
         mPasswordEdit =  findViewById(R.id.loginEditText);
         register =  findViewById(R.id.signinButton);
 
@@ -48,7 +48,7 @@ public class QuizzyLoginActivity extends AppCompatActivity implements View.OnCli
             final String username = PreferenceUtils.getUsername();
             if(!TextUtils.isEmpty(username)) {
                 Toast.makeText(QuizzyApplication.getContext(),"Connected",Toast.LENGTH_SHORT).show();
-                startActivity(getHomeIntent(username));
+                startActivity(getUserIntent(username));
             }
         }catch (NullPointerException e){
             e.printStackTrace();
@@ -85,7 +85,7 @@ public class QuizzyLoginActivity extends AppCompatActivity implements View.OnCli
                 @Override
                 public void run() {
 
-                    if (db.UserDao().getAUser(username, password) == null) {
+                    if (db.UserDao().getAutehenticatedUser(username, password) == null) {
 
                         try {
                             sleep(500);
@@ -97,8 +97,8 @@ public class QuizzyLoginActivity extends AppCompatActivity implements View.OnCli
                             public void run() {
                                 progressBar.setVisibility(View.INVISIBLE);
                                 Toast.makeText(QuizzyApplication.getContext(), "Connected", Toast.LENGTH_SHORT).show();
-                                //referenceUtils.setUsername(username);
-                                startActivity(getHomeIntent(username));
+                                //PreferenceUtils.setUsername(username);
+                                startActivity(getUserIntent(username));
                             }
                         });
 
@@ -129,8 +129,8 @@ public class QuizzyLoginActivity extends AppCompatActivity implements View.OnCli
 
 
     }
-    private Intent getHomeIntent(String userName){
-        final Intent homeIntent = new Intent(this, MainActivity.class);
+    private Intent getUserIntent(String userName){
+        final Intent homeIntent = new Intent(this, UserActivity.class);
         final Bundle extras = new Bundle();
         extras.putString(Constants.Login.EXTRA_LOGIN, userName);
         homeIntent.putExtras(extras);
@@ -144,11 +144,5 @@ public class QuizzyLoginActivity extends AppCompatActivity implements View.OnCli
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
+
 }

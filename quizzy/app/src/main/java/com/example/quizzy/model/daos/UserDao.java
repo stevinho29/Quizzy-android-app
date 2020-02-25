@@ -25,10 +25,11 @@ public interface UserDao {
     @Query("SELECT * FROM User where email= :email and password= :password ")
     User getAUser(String email, String password);
 
+    @Query(("SELECT * FROM user Where pseudo=:pseudo AND password= :password"))
+    User getAutehenticatedUser(String pseudo, String password);
     @Transaction
     @Query("SELECT * FROM User")
     List<UserWithParties> getUserWithParties();
-
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertUser(User user);

@@ -18,6 +18,9 @@ public interface ReponseFausseDao {
     @Query("SELECT * FROM ReponseFausse ")
     List<ReponseFausse> getAllResponseFalse();
 
+    @Query("SELECT * FROM ReponseFausse WHERE questionsOwnerResponseFalse_id= :id ")
+    List<ReponseFausse> getAllResponseFalseForAQuestion(Integer id);
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAResponse(ReponseFausse response);
     @Update
