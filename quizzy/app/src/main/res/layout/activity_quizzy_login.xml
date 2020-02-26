@@ -50,7 +50,7 @@
         android:id="@+id/LoginButton"
         android:layout_width="150dp"
         android:layout_height="55dp"
-        android:backgroundTint="#8D95BB"
+        android:backgroundTint="@color/colorLightBlue"
         android:text="@string/login_button"
         android:textColor="@color/colorWhite"
         app:cornerRadius="@dimen/login_corner_radius"

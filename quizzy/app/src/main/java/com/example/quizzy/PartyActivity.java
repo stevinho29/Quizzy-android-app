@@ -85,12 +85,12 @@ public class PartyActivity extends AppCompatActivity implements View.OnClickList
                 categoryAndQuestionsList= db.CategoryDao().getCategoryAndQuestions(libelle);
                 questionList= categoryAndQuestionsList.get(0).questionList;
                 //Log.d("Category et questions",categoryAndQuestionsList.get(0).questionList.get(0).getLibelleQuestion());
-
             }
         });
 
     }
     public boolean getCurrentAnswers(Question q){
+        reponseFausseList = null;
         ExecutorService executor = Executors.newSingleThreadExecutor();
         executor.submit(new Runnable() {
             @Override
@@ -131,19 +131,54 @@ public class PartyActivity extends AppCompatActivity implements View.OnClickList
         if(v.getId() == R.id.startQuiz) {
             start.setVisibility(View.GONE);
             jauge.setVisibility(View.VISIBLE);
-            bar.setTitle(currentIndex+"/"+questionList.size());
-            for(Question q: questionList) {
+            currentIndex = 1;
+            new CountDownTimer(50000, 10000) {
+                public void onTick(long millisUntilFinished)
+                {
+                    Log.d("msg", millisUntilFinished + "");
+                    bar.setTitle(currentIndex+"/"+questionList.size());
+                    adapterAlreadySet = false;
+                    Question q = questionList.get(currentIndex-1);//array commence à 0 index à 1
+                    while(true){
+                        if(getCurrentAnswers(q))  // pour rendre l'exécution synchrone
+                            break;
+                    }
+                    //getCurrentAnswers(q);
+                    onAnswersRetrieved(reponseFausseList);
+                    onQuestionRetrieved(q);
+                    countDownTimer = new CountDownTimer(10000, 1000) {
+                        public void onTick(long millisUntilFinished)
+                        {
+                            jauge.setProgress((int) millisUntilFinished - 1000);
+                        }
+                        public void onFinish()
+                        {
+                            jauge.setProgress(10000);
+                        }
+                    }.start();
+                    currentIndex++;
+                }
+                public void onFinish()
+                {
+                    /*jauge.setProgress(10000);*/
+                }
+            }.start();
+            /*for(Question q: questionList) {
+                bar.setTitle(currentIndex+"/"+questionList.size());
+                adapterAlreadySet = false;
                 while(true){
-                    if(getCurrentAnswers(q))  // pour rendre l'exécution synchrone
-                        break;
+                    if(getCurrentAnswers(q)){  // pour rendre l'exécution synchrone
+                        Log.d("msg", "1fois");
+                        break;}
                 }
                 //getCurrentAnswers(q);
                 onAnswersRetrieved(reponseFausseList);
                 onQuestionRetrieved(q);
-                countDownTimer = new CountDownTimer(10000, 1000) {
+                /*countDownTimer = new CountDownTimer(10000, 1000) {
                     public void onTick(long millisUntilFinished)
                     {
                         jauge.setProgress((int) millisUntilFinished - 1000);
+                        Log.d("msg", "timer");
                     }
                     public void onFinish()
                     {
@@ -151,12 +186,9 @@ public class PartyActivity extends AppCompatActivity implements View.OnClickList
                     }
 
                 }.start();
-                        currentIndex++;
-            }
-                }
-
-
+                currentIndex++;
+            }*/
         }
-
     }
+}
 
