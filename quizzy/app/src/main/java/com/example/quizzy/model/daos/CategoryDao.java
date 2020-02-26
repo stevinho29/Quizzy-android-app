@@ -19,8 +19,8 @@ public interface CategoryDao {
     List<Category> getAllCategory();
 
     @Transaction
-    @Query("SELECT * FROM Category ")
-    List<CategoryAndQuestions> getCategoryAndQuestions();
+    @Query("SELECT * FROM Category WHERE libelleCategory= :libelle")
+    List<CategoryAndQuestions> getCategoryAndQuestions(String libelle);
 
 
     @Query("SELECT * FROM category WHERE id_category= :id")

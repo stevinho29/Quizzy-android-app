@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.Toolbar;
 
 import com.example.quizzy.ui.fragments.CategoriesFragment;
 import com.example.quizzy.utils.Constants;
@@ -13,10 +15,12 @@ import com.example.quizzy.utils.PreferenceUtils;
 
 public class UserActivity extends AppCompatActivity {  // activité lancée après authentification de l'utilisateur
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
+
 
         final Intent intent = getIntent();
         if(null!= intent){
@@ -25,6 +29,7 @@ public class UserActivity extends AppCompatActivity {  // activité lancée apr�
             {
                 final String  login = extras.getString(Constants.Login.EXTRA_LOGIN);
                 try {
+
                     getSupportActionBar().setSubtitle(login);
                 }catch (NullPointerException e){
                     e.printStackTrace();
@@ -32,10 +37,7 @@ public class UserActivity extends AppCompatActivity {  // activité lancée apr�
 
             }
         }
-         if(savedInstanceState==null)
-        {
-            getSupportFragmentManager().beginTransaction().add(R.id.container,new CategoriesFragment()).commit();
-        }
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

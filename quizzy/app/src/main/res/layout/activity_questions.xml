@@ -12,6 +12,8 @@
         android:layout_height="wrap_content"
         android:textAlignment="center">
 
+
+
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/app_bar"
             android:layout_width="match_parent"
@@ -22,7 +24,21 @@
             android:paddingEnd="@dimen/header_padding_end"
             android:textAlignment="center"
             app:buttonGravity="top"
-            app:title="@string/number_question" />
+            app:title="Quizz" />
+        <Button
+        android:id="@+id/startQuiz"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Start" />
+        <ProgressBar
+            android:id="@+id/determinateBar"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="10000"
+            android:progress="0"
+            android:visibility="gone"
+            />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -36,18 +52,25 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/parties"
+            android:id="@+id/question"
             android:layout_width="match_parent"
-            android:layout_height="197dp"
+            android:layout_height="139dp"
             android:text="@string/question"
             android:textAlignment="center"
             android:textColor="@color/colorWhite"
             android:textSize="30sp" />
 
+
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/answer_recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:itemCount="4" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 

@@ -23,16 +23,18 @@ import java.util.List;
 public interface QuestionDao {
 
     @Transaction
-    @Query("SELECT * FROM Question ")
-    QuestionAndReponseVraie getQuestionAndResponseTrue();
+    @Query("SELECT * FROM Question WHERE libelleQuestion= :libelle")
+    QuestionAndReponseVraie getQuestionAndResponseTrue(String libelle);
 
     @Transaction
-    @Query("SELECT * FROM Question ")
-    List<QuestionAndReponsesFalse> getQuestionAndResponseFalse();
+    @Query("SELECT * FROM Question WHERE libelleQuestion= :libelle ")
+    List<QuestionAndReponsesFalse> getQuestionAndResponseFalse(String libelle);
 
     @Transaction
     @Query("SELECT * FROM Question ")
     List<QuestionWithParties> getQuestionAndParties();
+
+
 
     @Query("SELECT * FROM Question ")
     List<Question> getAllQuestion();

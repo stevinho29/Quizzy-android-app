@@ -41,6 +41,9 @@
     <string name="error_no_login">Empty login !</string>
     <string name="error_no_password">Empty password !</string>
     <string name="action_settings">Title!</string>
+    <!--USER authenticated -->
+    <string name="scores">Historique</string>
+    <string name="start_quizz">Commencer un nouveau quizz</string>
 
     <!-- accueil strings -->
     <string name="accueil">Accueil</string>
