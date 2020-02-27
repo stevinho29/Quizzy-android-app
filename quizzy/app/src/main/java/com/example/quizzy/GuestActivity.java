@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.quizzy.adapter.CategoryAdapter;
+import com.example.quizzy.interfaces.CategoryListener;
 import com.example.quizzy.interfaces.SelectListener;
 import com.example.quizzy.model.Repository.UserDatabase;
 import com.example.quizzy.model.entities.Category;
@@ -16,7 +17,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class GuestActivity extends AppCompatActivity implements SelectListener{ // activité lancée quand tu choisis le mode invité
+public class GuestActivity extends AppCompatActivity implements CategoryListener{ // activité lancée quand tu choisis le mode invité
 
     UserDatabase db;
     CategoryAdapter adapter;
@@ -47,7 +48,7 @@ public class GuestActivity extends AppCompatActivity implements SelectListener{ 
 
     public void onCategoryRetrieved(List<Category> categoryList) {
 
-        adapter = new CategoryAdapter(categoryList);
+        adapter = new CategoryAdapter(categoryList, this);
         rv = findViewById(R.id.home_recycler);
         // Set layout manager to position the items
         rv.setLayoutManager(new LinearLayoutManager(this));
@@ -68,9 +69,14 @@ public class GuestActivity extends AppCompatActivity implements SelectListener{ 
         return partyIntent;
     }
 
-    @Override
+    /*@Override
     public void onCategorySelected(String libelle) {
         startActivity(getPartyIntent(libelle));
+    }*/
+
+    @Override
+    public void onViewCategory(String categoryLibelle) {
+        startActivity(getPartyIntent(categoryLibelle));
     }
 }
 

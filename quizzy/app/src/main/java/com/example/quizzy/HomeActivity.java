@@ -18,7 +18,7 @@ import java.util.concurrent.Executors;
 
 public class HomeActivity extends AppCompatActivity {
 
-    UserDatabase db;
+    /*UserDatabase db;
     CategoryAdapter adapter;
     List<Category> categories;
     RecyclerView rv;
@@ -57,5 +57,5 @@ public class HomeActivity extends AppCompatActivity {
     public void onCategoryRetrieved(List<Category> categoryList) {
         categories.addAll(categoryList);
         adapter.notifyDataSetChanged();
-    }
+    }*/
 }

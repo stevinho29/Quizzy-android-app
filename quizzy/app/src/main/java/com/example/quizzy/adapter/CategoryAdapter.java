@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.quizzy.GuestActivity;
 import com.example.quizzy.R;
 
+import com.example.quizzy.interfaces.CategoryListener;
 import com.example.quizzy.interfaces.SelectListener;
 import com.example.quizzy.model.entities.Category;
 import com.example.quizzy.view.CategoryViewHolder;
@@ -26,10 +27,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> im
     private List<Category> mCategories;
     private TextView libelle;
     private SelectListener mListener;
-    //Constructeur
-    public CategoryAdapter(List<Category> categories) {
-        mCategories = categories;
+    private CategoryListener mCategoryListener;
 
+    //Constructeur
+    public CategoryAdapter(List<Category> categories, CategoryListener categoryListener) {
+        mCategories = categories;
+        mCategoryListener = categoryListener;
     }
 
     @Override
@@ -41,7 +44,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> im
 
         view.setOnClickListener(this);
 
-        return new CategoryViewHolder(view);
+        return new CategoryViewHolder(view, mCategoryListener);
     }
 
     @Override

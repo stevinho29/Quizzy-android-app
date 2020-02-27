@@ -61,14 +61,19 @@ public class PartyActivity extends AppCompatActivity implements View.OnClickList
 
 
         final Intent intent = getIntent();
+        String libelle = null;
         if(null!= intent){
             final Bundle extras = intent.getExtras();
             if(null!= extras )
             {
-                final String  libelle = extras.getString("libelle");
+                libelle = extras.getString("libelle");
             }
         }
-        getQuestionForCurrentCategory("Entertainment: Board Games");
+        if(libelle != null) {
+            getQuestionForCurrentCategory(libelle);
+            Log.d("libelle", libelle);
+        }else
+            getQuestionForCurrentCategory("Entertainment: Board Games");
         bar= findViewById(R.id.app_bar);
         question= findViewById(R.id.question);
         jauge= findViewById(R.id.determinateBar);

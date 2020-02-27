@@ -84,6 +84,6 @@ public class CategoriesFragment extends Fragment implements CategoryChangeListen
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         //ListView lView = (ListView) view;
         Category category = (Category) mListView.getItemAtPosition(i);
-        if(mCategoryListener!= null) mCategoryListener.onViewCategory(category);
+        if(mCategoryListener!= null) mCategoryListener.onViewCategory(category.getLibelleCategory());
     }
 }
