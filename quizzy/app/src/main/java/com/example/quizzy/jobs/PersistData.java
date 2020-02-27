@@ -79,7 +79,7 @@ public class PersistData {
     }
 
     public  static boolean authentication(String pseudo, String password){
-        User user= db.UserDao().getAutehenticatedUser(pseudo,password);
+        User user= db.UserDao().getAuthenticatedUser(pseudo,password);
         if(user != null)
             return true;
         else

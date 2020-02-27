@@ -1,42 +1,50 @@
 package com.example.quizzy;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toolbar;
 
 import com.example.quizzy.ui.fragments.CategoriesFragment;
 import com.example.quizzy.utils.Constants;
 import com.example.quizzy.utils.PreferenceUtils;
 
-public class UserActivity extends AppCompatActivity {  // activité lancée après authentification de l'utilisateur
+public class UserActivity extends AppCompatActivity implements View.OnClickListener {  // activité lancée après authentification de l'utilisateur
 
-
+    private Toolbar bar;
+    private Button historique;
+    private Button startParty;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
-
+        bar= findViewById(R.id.app_bar);
 
         final Intent intent = getIntent();
         if(null!= intent){
             final Bundle extras = intent.getExtras();
             if(null!= extras )
             {
-                final String  login = extras.getString(Constants.Login.EXTRA_LOGIN);
+                final String  pseudo = extras.getString(Constants.Login.EXTRA_LOGIN);
                 try {
-
-                    getSupportActionBar().setSubtitle(login);
+                    bar.setTitle("welcome back "+pseudo);
+                    getSupportActionBar().setSubtitle(pseudo);
                 }catch (NullPointerException e){
                     e.printStackTrace();
                 }
 
             }
         }
+        historique= findViewById(R.id.userHistory);
+        startParty= findViewById(R.id.userQuizz);
+        historique.setOnClickListener(this);
+        startParty.setOnClickListener(this);
 
     }
     @Override
@@ -62,5 +70,22 @@ public class UserActivity extends AppCompatActivity {  // activité lancée apr�
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        if(v.getId() == R.id.userQuizz){
+            startActivity(getGuestIntent());
+        }else{ // dans ce cas c'est l'historique qu'on affiche
+            startActivity(getPalmaresIntent());
+        }
+    }
+
+    public Intent getGuestIntent(){
+        return new Intent(this,GuestActivity.class);
+    }
+    public Intent getPalmaresIntent(){
+        return new Intent(this,PalmaresActivity.class);
     }
 }

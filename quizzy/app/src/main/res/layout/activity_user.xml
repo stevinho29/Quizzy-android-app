@@ -21,7 +21,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/userQuizz"
         android:layout_width="274dp"
         android:layout_height="110dp"
         android:text="@string/start_quizz"
@@ -35,7 +35,7 @@
         app:layout_constraintVertical_bias="0.607" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/userHistory"
         android:layout_width="266dp"
         android:layout_height="107dp"
         android:text="@string/scores"

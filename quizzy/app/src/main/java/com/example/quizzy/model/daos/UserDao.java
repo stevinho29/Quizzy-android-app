@@ -26,7 +26,7 @@ public interface UserDao {
     User getAUser(String email, String password);
 
     @Query(("SELECT * FROM user Where pseudo=:pseudo AND password= :password"))
-    User getAutehenticatedUser(String pseudo, String password);
+    User getAuthenticatedUser(String pseudo, String password);
     @Transaction
     @Query("SELECT * FROM User")
     List<UserWithParties> getUserWithParties();

@@ -55,6 +55,8 @@ public class PartyActivity extends AppCompatActivity implements View.OnClickList
     AnswerAdapter adapter;
     RecyclerView rv;
 
+    static String libelle = null;
+
     boolean running =   false;
     private int score = 0;
 
@@ -67,12 +69,13 @@ public class PartyActivity extends AppCompatActivity implements View.OnClickList
 
 
         final Intent intent = getIntent();
-        String libelle = null;
+
         if(null!= intent){
             final Bundle extras = intent.getExtras();
             if(null!= extras )
             {
                 libelle = extras.getString("libelle");
+
             }
         }
         if(libelle != null) {
@@ -179,7 +182,7 @@ public class PartyActivity extends AppCompatActivity implements View.OnClickList
                 }
                 public void onFinish()
                 {
-                    startActivity(getResultatIntent(score));
+                        startActivity(getResultatIntent(score,libelle));
                 }
             }.start();
             /*for(Question q: questionList) {
@@ -210,12 +213,17 @@ public class PartyActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    private Intent getResultatIntent(int score){
+    private Intent getResultatIntent(int score,String libelle){
         final Intent resultatIntent = new Intent(this, ResultatActivity.class);
         final Bundle extras = new Bundle();
+        extras.putString("libelle",libelle);
         extras.putString("score", score+"/"+questionList.size());
         resultatIntent.putExtras(extras);
         return resultatIntent;
     }
+    /*@Override
+    public void onBackPressed() {
+        finish();
+    }*/
 }
 

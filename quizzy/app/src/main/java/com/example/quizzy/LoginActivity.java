@@ -85,7 +85,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 @Override
                 public void run() {
 
-                    if (db.UserDao().getAutehenticatedUser(username, password) == null) {
+                    if (db.UserDao().getAuthenticatedUser(username, password) == null) {
 
                         try {
                             sleep(500);
@@ -97,7 +97,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             public void run() {
                                 progressBar.setVisibility(View.INVISIBLE);
                                 Toast.makeText(QuizzyApplication.getContext(), "Connected", Toast.LENGTH_SHORT).show();
-                                //PreferenceUtils.setUsername(username);
+                                PreferenceUtils.setUsername(username);
                                 startActivity(getUserIntent(username));
                             }
                         });
@@ -136,7 +136,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         homeIntent.putExtras(extras);
         return homeIntent;
     }
-
 
     private Intent getRegisterIntent(){
         final Intent registerIntent= new Intent(this,RegisterActivity.class);
