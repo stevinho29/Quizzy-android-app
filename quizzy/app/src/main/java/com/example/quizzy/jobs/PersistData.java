@@ -43,7 +43,7 @@ public class PersistData {
                 db.QuestionDao().insertQuestion(new Question(quizz.question,quizz.difficulty,id_c));
                 Question question= db.QuestionDao().getQuestionBylibelle(quizz.question);
                 Integer id_q= question.getId_question();
-                db.ReponseVraieDao().insertAResponse(new ReponseVraie(quizz.correct_answers,id_q));
+                db.ReponseVraieDao().insertAResponse(new ReponseVraie(quizz.correct_answer,id_q));
 
                 for( String s: quizz.incorrect_answers){
                     db.ReponseFausseDao().insertAResponse(new ReponseFausse(s,id_q));
@@ -61,7 +61,7 @@ public class PersistData {
             db.QuestionDao().insertQuestion(new Question(quizz.question,quizz.difficulty,id_c));
             Integer id_q= db.QuestionDao().getQuestionBylibelle(quizz.question).getId_question();
 
-            db.ReponseVraieDao().insertAResponse(new ReponseVraie(quizz.correct_answers,id_q));
+            db.ReponseVraieDao().insertAResponse(new ReponseVraie(quizz.correct_answer,id_q));
 
             for( String s: quizz.incorrect_answers){
                 db.ReponseFausseDao().insertAResponse(new ReponseFausse(s,id_q));

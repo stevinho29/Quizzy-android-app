@@ -54,10 +54,10 @@
         <TextView
             android:id="@+id/question"
             android:layout_width="match_parent"
-            android:layout_height="293dp"
+            android:layout_height="169dp"
             android:textAlignment="center"
             android:textColor="@color/colorWhite"
-            android:textSize="30sp" />
+            android:textSize="24sp" />
 
 
         <RadioGroup
