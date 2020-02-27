@@ -2,12 +2,14 @@ package com.example.quizzy;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.text.HtmlCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -27,6 +29,7 @@ import com.example.quizzy.model.entities.ReponseFausse;
 import com.example.quizzy.model.entities.ReponseVraie;
 import com.example.quizzy.utils.Constants;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -52,6 +55,9 @@ public class PartyActivity extends AppCompatActivity implements View.OnClickList
     AnswerAdapter adapter;
     RecyclerView rv;
 
+    boolean running =   false;
+    private int score = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,7 +77,6 @@ public class PartyActivity extends AppCompatActivity implements View.OnClickList
         }
         if(libelle != null) {
             getQuestionForCurrentCategory(libelle);
-            Log.d("libelle", libelle);
         }else
             getQuestionForCurrentCategory("Entertainment: Board Games");
         bar= findViewById(R.id.app_bar);
@@ -95,39 +100,47 @@ public class PartyActivity extends AppCompatActivity implements View.OnClickList
 
     }
     public boolean getCurrentAnswers(Question q){
-        reponseFausseList = null;
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-        executor.submit(new Runnable() {
-            @Override
-            public void run() {
-                reponseFausseList = db.QuestionDao().getQuestionAndResponseFalse(q.getLibelleQuestion()).get(0).responseFalseList;
-                //reponseVraie = db.QuestionDao().getQuestionAndResponseTrue(q.getLibelleQuestion()).responseTrue;
-                //Log.d("Reponse vraie",reponseVraie.getLibelleReponseVraie());
-            }
-        });
-        if(reponseFausseList == null)
+        Log.d("running", running +"");
+        if(!running) {
+            reponseFausseList = null;
+            reponseVraie = null;
+            running = true;
+            ExecutorService executor = Executors.newSingleThreadExecutor();
+            executor.submit(new Runnable() {
+                @Override
+                public void run() {
+                    reponseVraie = db.QuestionDao().getQuestionAndResponseTrue(q.getLibelleQuestion()).responseTrue;
+                    reponseFausseList = db.QuestionDao().getQuestionAndResponseFalse(q.getLibelleQuestion()).get(0).responseFalseList;
+                    reponseFausseList.add(reponseVraie.convertToReponseFausse());
+                    Log.d("vraie", reponseVraie.getLibelleReponseVraie());
+                }
+            });
             return false;
-        else
+        }
+        else if(running && reponseFausseList == null) {
+            return false;
+        }
+        else {
+            running = false;
+            Collections.shuffle(reponseFausseList);
             return true;
+        }
     }
     public void onQuestionRetrieved(Question q){
-
-        question.setText(q.getLibelleQuestion());
-
+        question.setText( Html.fromHtml(q.getLibelleQuestion(), HtmlCompat.FROM_HTML_MODE_LEGACY));
     }
     public void onAnswersRetrieved(List<ReponseFausse> reponseFausseList) {
 
         if(!adapterAlreadySet)
         {
-            adapter = new AnswerAdapter(reponseFausseList);
-        rv = findViewById(R.id.answer_recycler);
+            adapter = new AnswerAdapter(reponseFausseList, reponseVraie);
+            rv = findViewById(R.id.answer_recycler);
 
-        // Set layout manager to position the items
-        rv.setLayoutManager(new LinearLayoutManager(this));
-        rv.setAdapter(adapter);
-
-        adapter.notifyDataSetChanged();
-        adapterAlreadySet= true;
+            // Set layout manager to position the items
+            rv.setLayoutManager(new LinearLayoutManager(this));
+            rv.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
+            adapterAlreadySet= true;
         }
     }
 
@@ -137,11 +150,12 @@ public class PartyActivity extends AppCompatActivity implements View.OnClickList
             start.setVisibility(View.GONE);
             jauge.setVisibility(View.VISIBLE);
             currentIndex = 1;
-            new CountDownTimer(50000, 10000) {
+            new CountDownTimer(questionList.size()*10000, 10000) {
                 public void onTick(long millisUntilFinished)
                 {
-                    Log.d("msg", millisUntilFinished + "");
-                    bar.setTitle(currentIndex+"/"+questionList.size());
+                    if (adapter != null)
+                        score += adapter.score;
+                    bar.setTitle(currentIndex+"/" + questionList.size());
                     adapterAlreadySet = false;
                     Question q = questionList.get(currentIndex-1);//array commence à 0 index à 1
                     while(true){
@@ -165,7 +179,7 @@ public class PartyActivity extends AppCompatActivity implements View.OnClickList
                 }
                 public void onFinish()
                 {
-                    /*jauge.setProgress(10000);*/
+                    startActivity(getResultatIntent(score));
                 }
             }.start();
             /*for(Question q: questionList) {
@@ -194,6 +208,14 @@ public class PartyActivity extends AppCompatActivity implements View.OnClickList
                 currentIndex++;
             }*/
         }
+    }
+
+    private Intent getResultatIntent(int score){
+        final Intent resultatIntent = new Intent(this, ResultatActivity.class);
+        final Bundle extras = new Bundle();
+        extras.putString("score", score+"/"+questionList.size());
+        resultatIntent.putExtras(extras);
+        return resultatIntent;
     }
 }
 

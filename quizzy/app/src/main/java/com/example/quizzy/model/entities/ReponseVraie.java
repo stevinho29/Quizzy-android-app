@@ -41,4 +41,8 @@ public class ReponseVraie {
     public void setLibelleReponseVraie(String libelleReponseVraie) {
         this.libelleReponseVraie = libelleReponseVraie;
     }
+
+    public ReponseFausse convertToReponseFausse() {
+        return new ReponseFausse(this.libelleReponseVraie, this.questionsOwnerResponseTrue_id);
+    }
 }

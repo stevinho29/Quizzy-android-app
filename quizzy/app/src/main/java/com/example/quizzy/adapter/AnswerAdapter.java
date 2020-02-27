@@ -1,6 +1,7 @@
 package com.example.quizzy.adapter;
 
 import android.content.Context;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,21 +11,26 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.text.HtmlCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.quizzy.R;
 import com.example.quizzy.model.entities.ReponseFausse;
+import com.example.quizzy.model.entities.ReponseVraie;
 
 
 import java.util.List;
 
 public class AnswerAdapter extends RecyclerView.Adapter<AnswerAdapter.AnswerHolder> {
     private List<ReponseFausse> mAnswers;
+    private ReponseVraie mTrue;
     private TextView libelle;
     public int mSelectedItem = -1;
+    public int score = 0;
 
-    public AnswerAdapter(List<ReponseFausse> list) {
+    public AnswerAdapter(List<ReponseFausse> list, ReponseVraie rVraie) {
         mAnswers = list;
+        mTrue = rVraie;
     }
     @NonNull
     @Override
@@ -33,7 +39,6 @@ public class AnswerAdapter extends RecyclerView.Adapter<AnswerAdapter.AnswerHold
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.recycler_answer_item, parent, false);
-
         return new AnswerHolder(view);
     }
 
@@ -66,13 +71,17 @@ public class AnswerAdapter extends RecyclerView.Adapter<AnswerAdapter.AnswerHold
             mButton = itemView.findViewById(R.id.selectAnswerButton);
             View.OnClickListener clickListener = v -> {
                 mSelectedItem = getAdapterPosition();
+                if(mLabel.getText().toString().equals(mTrue.getLibelleReponseVraie()))
+                    score = 1;
+                else
+                    score = 0;
                 notifyDataSetChanged();
             };
             itemView.setOnClickListener(clickListener);
             mButton.setOnClickListener(clickListener);
         }
         public  void updateAnswer(ReponseFausse reponseFausse){
-            mLabel.setText(reponseFausse.getLibelleReponseFausse());
+            mLabel.setText( Html.fromHtml(reponseFausse.getLibelleReponseFausse(), HtmlCompat.FROM_HTML_MODE_LEGACY));
         }
     }
 }
