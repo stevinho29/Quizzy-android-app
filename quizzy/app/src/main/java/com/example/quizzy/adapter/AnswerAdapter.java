@@ -40,6 +40,7 @@ public class AnswerAdapter extends RecyclerView.Adapter<AnswerAdapter.AnswerHold
     @Override
     public void onBindViewHolder(@NonNull AnswerHolder answerHolder, int i) {
         answerHolder.mButton.setChecked(i == mSelectedItem);
+        answerHolder.updateAnswer(mAnswers.get(i));
     }
 
     @Override
@@ -57,9 +58,11 @@ public class AnswerAdapter extends RecyclerView.Adapter<AnswerAdapter.AnswerHold
 
     public class AnswerHolder extends RecyclerView.ViewHolder  {
         public RadioButton mButton;
+        public TextView mLabel;
 
         public AnswerHolder(View itemView) {
             super(itemView);
+            mLabel = itemView.findViewById(R.id.reponse);
             mButton = itemView.findViewById(R.id.selectAnswerButton);
             View.OnClickListener clickListener = v -> {
                 mSelectedItem = getAdapterPosition();
@@ -67,6 +70,9 @@ public class AnswerAdapter extends RecyclerView.Adapter<AnswerAdapter.AnswerHold
             };
             itemView.setOnClickListener(clickListener);
             mButton.setOnClickListener(clickListener);
+        }
+        public  void updateAnswer(ReponseFausse reponseFausse){
+            mLabel.setText(reponseFausse.getLibelleReponseFausse());
         }
     }
 }
