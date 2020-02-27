@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,15 +14,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.quizzy.R;
 import com.example.quizzy.model.entities.ReponseFausse;
-import com.example.quizzy.view.AnswerHolder;
 
 
 import java.util.List;
 
-public class AnswerAdapter extends RecyclerView.Adapter<AnswerHolder> implements View.OnClickListener {
+public class AnswerAdapter extends RecyclerView.Adapter<AnswerAdapter.AnswerHolder> {
     private List<ReponseFausse> mAnswers;
     private TextView libelle;
-    private Button selectedButton;
+    public int mSelectedItem = -1;
 
     public AnswerAdapter(List<ReponseFausse> list) {
         mAnswers = list;
@@ -34,14 +34,12 @@ public class AnswerAdapter extends RecyclerView.Adapter<AnswerHolder> implements
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.recycler_answer_item, parent, false);
 
-        view.setOnClickListener(this);
-
         return new AnswerHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull AnswerHolder answerHolder, int i) {
-        answerHolder.updateAnswer(mAnswers.get(i));
+        answerHolder.mButton.setChecked(i == mSelectedItem);
     }
 
     @Override
@@ -50,9 +48,25 @@ public class AnswerAdapter extends RecyclerView.Adapter<AnswerHolder> implements
     }
 
 
-    @Override
+    /*@Override
     public void onClick(View v) {
+        mSelectedItem = getItem;
         libelle= v.findViewById(R.id.reponse);
         Log.d("answer listener",libelle.getText().toString());
+    }*/
+
+    public class AnswerHolder extends RecyclerView.ViewHolder  {
+        public RadioButton mButton;
+
+        public AnswerHolder(View itemView) {
+            super(itemView);
+            mButton = itemView.findViewById(R.id.selectAnswerButton);
+            View.OnClickListener clickListener = v -> {
+                mSelectedItem = getAdapterPosition();
+                notifyDataSetChanged();
+            };
+            itemView.setOnClickListener(clickListener);
+            mButton.setOnClickListener(clickListener);
+        }
     }
 }
