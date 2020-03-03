@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.quizzy.api.RetrofitClientInstance;
 import com.example.quizzy.async.GetDataService;
+import com.example.quizzy.jobs.FirstLoadFromApi;
 import com.example.quizzy.jobs.PersistData;
 import com.example.quizzy.model.Repository.UserDatabase;
 import com.example.quizzy.model.entities.Category;
@@ -50,13 +51,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         guest.setOnClickListener(this);
         user.setOnClickListener(this);
 
-        PreferenceUtils.deletePrefs();
+       // PreferenceUtils.deletePrefs();
 
+        if(!PreferenceUtils.getFirstTime()) {
+            PreferenceUtils.setFirstTime(true);
+            FirstLoadFromApi getOurFirstQuestion = new FirstLoadFromApi();
+        }
 
         ExecutorService executor = Executors.newSingleThreadExecutor();
 
-        //RetrieveQuizzData quizz= new RetrieveQuizzData();
-        //quizz.execute();
 
         ///*Create handle for the RetrofitInstance interface*//*
         GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
@@ -81,6 +84,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Toast.makeText(MainActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
             }
         });
+
 
 
         executor.submit(new Runnable() {

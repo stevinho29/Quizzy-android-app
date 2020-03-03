@@ -2,6 +2,7 @@ package com.example.quizzy;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -12,6 +13,7 @@ import com.example.quizzy.interfaces.CategoryListener;
 import com.example.quizzy.interfaces.SelectListener;
 import com.example.quizzy.model.Repository.UserDatabase;
 import com.example.quizzy.model.entities.Category;
+import com.example.quizzy.model.entities.CategoryAndQuestions;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -41,7 +43,20 @@ public class GuestActivity extends AppCompatActivity implements CategoryListener
         executor.submit(new Runnable() {
             @Override
             public void run() {
-                onCategoryRetrieved(db.CategoryDao().getAllCategory());
+                List<Category> categoryList= db.CategoryDao().getAllCategory();
+                List<Category> secondList = null;
+                List<CategoryAndQuestions> categoryAndQuestionsList;
+                int size= 0;
+                for( Category c: categoryList){
+                     categoryAndQuestionsList = db.CategoryDao().getCategoryAndQuestions(c.getLibelleCategory());
+                     size= categoryAndQuestionsList.get(0).questionList.size();
+                    if( size >= 10) {
+                         secondList.add(c);
+                         Log.d("catégorie ayant > 10",c.getLibelleCategory());
+                     }
+                }
+
+                onCategoryRetrieved(categoryList);
             }
         });
     }

@@ -35,6 +35,14 @@ public class PreferenceUtils {
         final SharedPreferences prefs = getSharedPreferences();
         prefs.edit().putString(Constants.Preferences.PREF_PASSWORD, password).commit();
     }
+    public static void setFirstTime(Boolean b){
+        final SharedPreferences prefs = getSharedPreferences();
+        prefs.edit().putBoolean(Constants.Preferences.PREF_FirstLaunch,b).apply();
+    }
+    public static Boolean getFirstTime(){
+        final SharedPreferences prefs = getSharedPreferences();
+        return prefs.getBoolean(Constants.Preferences.PREF_FirstLaunch, false);
+    }
     public static void deletePrefs(){
         final SharedPreferences prefs = getSharedPreferences();
         prefs.edit().clear().commit();
