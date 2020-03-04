@@ -1,67 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/cardV"
-    android:layout_width="@dimen/palmares_width"
-    android:layout_height="@dimen/palmares_height"
-    android:layout_marginStart="25dp"
-    android:layout_marginTop="@dimen/card_padding"
-    android:layout_marginEnd="25dp"
-    android:layout_marginBottom="@dimen/card_padding"
-    android:background="@drawable/bullesh"
-    android:minHeight="@dimen/card_height"
-    app:cardBackgroundColor="@color/colorPink"
-    app:cardCornerRadius="@dimen/card_corner_radius">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/globalFrame"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardV"
+        android:layout_width="@dimen/palmares_width"
+        android:layout_height="@dimen/palmares_height"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="@dimen/card_padding"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="@dimen/card_padding"
         android:background="@drawable/bullesh"
-        android:orientation="vertical"
-        android:textAlignment="center">
+        android:minHeight="@dimen/card_height"
+        app:cardBackgroundColor="@color/colorPink"
+        app:cardCornerRadius="@dimen/card_corner_radius">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/card_top_text_paddingH"
-            android:paddingTop="@dimen/palmares_card_padding"
-            android:paddingRight="@dimen/card_top_text_paddingH"
-            android:paddingBottom="@dimen/palmares_card_padding"
-            android:textAlignment="center">
+            android:background="@drawable/bullesh"
+            android:orientation="vertical"
+            android:textAlignment="center"
+            tools:layout_conversion_absoluteHeight="200dp"
+            tools:layout_conversion_absoluteWidth="225dp"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="0dp">
 
-            <TextView
-                android:id="@+id/headCardV"
-                android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/text_geographie"
-                android:textAlignment="center"
-                android:textColor="@color/colorWhite"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:paddingLeft="@dimen/card_top_text_paddingH"
+                android:paddingTop="@dimen/palmares_card_padding"
+                android:paddingRight="@dimen/card_top_text_paddingH"
+                android:paddingBottom="@dimen/palmares_card_padding"
+                android:textAlignment="center">
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/headCardV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text_geographie"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView
-                android:id="@+id/footCardV"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/points"
-                android:textAlignment="center"
-                android:textColor="@color/colorWhite"
-                android:textSize="24sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </LinearLayout>
-</androidx.cardview.widget.CardView>
+                <TextView
+                    android:id="@+id/footCardV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/points"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="24sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</FrameLayout>

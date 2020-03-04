@@ -49,7 +49,7 @@ public class PalmaresActivity extends AppCompatActivity  implements CategoryList
         adapter = new PalmaresCategoryAdapter(categoryList, this);
         rv = findViewById(R.id.palmares_category_recycler);
         // Set layout manager to position the items
-        rv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true));
+        rv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         rv.setAdapter(adapter);
 
         adapter.setCategoryListener(mListener);

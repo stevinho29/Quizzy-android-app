@@ -80,31 +80,31 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
 
             if (TextUtils.isEmpty(pseudo.getText())) {
-                name.setError("le champ pseudo est vide");
+                name.setError("Le champ pseudo est vide");
                 return;
             }
             if (TextUtils.isEmpty(name.getText())) {
-                name.setError("le champ nom est vide");
+                name.setError("Le champ nom est vide");
                 return;
             }
             if (TextUtils.isEmpty(surname.getText())) {
-                surname.setError("le champ prénom est vide");
+                surname.setError("Le champ prénom est vide");
                 return;
             }
             if (TextUtils.isEmpty(email.getText())) {
-                email.setError("le champ email est vide");
+                email.setError("Le champ email est vide");
                 return;
             }
             if (!RegisterValidateForm.isValidEmail(email.getText().toString())) {
-                email.setError("saisissez une adresse email valide ");
+                email.setError("Veuillez saisir une adresse email valide ");
                 return;
             }
             if (TextUtils.isEmpty(password.getText())) {
-                password.setError("le champ mot de passe est vide");
+                password.setError("Le champ mot de passe est vide");
                 return;
             }
             if (TextUtils.isEmpty(confirm_password.getText())) {
-                confirm_password.setError("le champ de confirmation de mot de passe est vide");
+                confirm_password.setError("Le champ de confirmation de mot de passe est vide");
                 return;
             }
             /*
@@ -114,7 +114,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             }*/
 
             if (!RegisterValidateForm.isValidMatchPassword(password.getText().toString(), confirm_password.getText().toString())) {
-                Toast.makeText(QuizzyApplication.getContext(), "les mots de passe ne correspondent pas", Toast.LENGTH_SHORT).show();
+                Toast.makeText(QuizzyApplication.getContext(), "Les mots de passe ne correspondent pas", Toast.LENGTH_SHORT).show();
                 password.setError("error");
                 confirm_password.setError("error");
                 return;

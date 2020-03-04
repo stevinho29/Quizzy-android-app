@@ -7,14 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.quizzy.R;
 import com.example.quizzy.interfaces.CategoryListener;
 import com.example.quizzy.interfaces.SelectListener;
 import com.example.quizzy.model.entities.Category;
-import com.example.quizzy.view.CategoryViewHolder;
 import com.example.quizzy.view.PalmaresCategoryViewHolder;
 
 import java.util.List;
@@ -47,7 +45,6 @@ public class PalmaresCategoryAdapter extends RecyclerView.Adapter<PalmaresCatego
     @Override
     public void onBindViewHolder(PalmaresCategoryViewHolder holder, int position) {
         holder.updateWithCategory(mCategories.get(position));
-        Log.d("ijoj0", mCategories.get(position).toString());
     }
 
     @Override
@@ -65,7 +62,4 @@ public class PalmaresCategoryAdapter extends RecyclerView.Adapter<PalmaresCatego
         Log.d("palmares category listener",libelle.getText().toString());
         mListener.onCategorySelected(libelle.getText().toString());
     }
-
-
-
 }
