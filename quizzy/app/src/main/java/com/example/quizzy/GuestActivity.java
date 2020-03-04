@@ -1,8 +1,11 @@
 package com.example.quizzy;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,17 +22,25 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import static java.lang.Thread.sleep;
+
 public class GuestActivity extends AppCompatActivity implements CategoryListener{ // activité lancée quand tu choisis le mode invité
 
     UserDatabase db;
     CategoryAdapter adapter;
     RecyclerView rv;
     SelectListener mListener;
+    private static MediaPlayer mediaPlayer;
 
+    private static List<Category> categoryList;
+    private static List<Category> secondList;
+    private ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guest);
+
+        progressBar= findViewById(R.id.progressBarCategory);
 
     }
 
@@ -39,37 +50,36 @@ public class GuestActivity extends AppCompatActivity implements CategoryListener
         db = QuizzyApplication.getDb();
         //final String login = PreferenceUtils.getUsername();
 
+        getCategory();
+
+    }
+
+    public void getCategory(){
+
         ExecutorService executor = Executors.newSingleThreadExecutor();
         executor.submit(new Runnable() {
             @Override
             public void run() {
                 List<Category> categoryList= db.CategoryDao().getAllCategory();
-                List<Category> secondList = null;
-                List<CategoryAndQuestions> categoryAndQuestionsList;
-                int size= 0;
-                for( Category c: categoryList){
-                     categoryAndQuestionsList = db.CategoryDao().getCategoryAndQuestions(c.getLibelleCategory());
-                     size= categoryAndQuestionsList.get(0).questionList.size();
-                    if( size >= 10) {
-                         secondList.add(c);
-                         Log.d("catégorie ayant > 10",c.getLibelleCategory());
-                     }
-                }
-
                 onCategoryRetrieved(categoryList);
             }
         });
-    }
 
+    }
     public void onCategoryRetrieved(List<Category> categoryList) {
 
+        if(mediaPlayer != null)
+            mediaPlayer.release();
+        onStartMusic();
+
+        progressBar.setVisibility(View.GONE);
         adapter = new CategoryAdapter(categoryList, this);
         rv = findViewById(R.id.home_recycler);
         // Set layout manager to position the items
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(adapter);
 
-        adapter.setCategoryListener(mListener);
+
         adapter.notifyDataSetChanged();
     }
 
@@ -78,6 +88,7 @@ public class GuestActivity extends AppCompatActivity implements CategoryListener
 
     private Intent getPartyIntent(String libelle){
         final Intent partyIntent = new Intent(this,PartyActivity.class);
+        partyIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         final Bundle extras = new Bundle();
         extras.putString("libelle", libelle);
         partyIntent.putExtras(extras);
@@ -91,7 +102,23 @@ public class GuestActivity extends AppCompatActivity implements CategoryListener
 
     @Override
     public void onViewCategory(String categoryLibelle) {
+        releaseMediaPlayer();
         startActivity(getPartyIntent(categoryLibelle));
+    }
+
+    public  void onStartMusic(){
+        int jingleId= getResources().getIdentifier("jingle","raw",getPackageName());
+        mediaPlayer= MediaPlayer.create(GuestActivity.this,jingleId);
+        mediaPlayer.start();
+    }
+    public static void releaseMediaPlayer(){
+        mediaPlayer.stop();
+        mediaPlayer.release();
+    }
+    public void onBackPressed() {
+        super.onBackPressed();
+        releaseMediaPlayer();
+        //finish();
     }
 }
 

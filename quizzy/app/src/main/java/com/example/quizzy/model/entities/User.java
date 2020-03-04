@@ -75,7 +75,8 @@ public class User {
         this.surname = surname;
     }
 
-    public User(String name,String surname,String email,String password,Date birthDate){
+    public User(String pseudo,String name,String surname,String email,String password,Date birthDate){
+        this.pseudo= pseudo;
         this.name=name;
         this.surname=surname;
         this.email=email;

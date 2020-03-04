@@ -2,6 +2,7 @@ package com.example.quizzy;
 
 import android.app.Application;
 import android.content.Context;
+import android.media.MediaPlayer;
 
 import androidx.room.Room;
 
@@ -32,4 +33,6 @@ public class QuizzyApplication extends Application {
     public static UserDatabase getDb(){
         return db;
     }
+
+
 }

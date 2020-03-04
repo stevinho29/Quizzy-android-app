@@ -6,15 +6,14 @@ import androidx.room.Relation;
 
 import java.util.List;
 
-public class QuestionWithParties { //cette classe résulte de la relation many to many entre Question et Partie
+public class CategoryWithParties { //cette classe résulte de la relation many to many entre Question et Partie
     //elle permet de retrouver toutes les parties pour lesquelles une question a été posée (pas trè!s utile pour le moment à voir)
 
     @Embedded
-    public Question question;
+    public Category category;
     @Relation(
-            parentColumn = "id_question",
-            entityColumn = "id_party",
-            associateBy = @Junction(HavingQuestions.class)
+            parentColumn = "id_category",
+            entityColumn = "categoryOwnerParty_id"
     )
     public List<Party> partyList;
 }

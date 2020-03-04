@@ -4,5 +4,5 @@ import android.app.Activity;
 
 public interface SelectListener {
 
-    public void onCategorySelected(String libelle);
+    public void onResponseSelected();
 }

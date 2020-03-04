@@ -10,6 +10,8 @@ import androidx.room.Update;
 
 import com.example.quizzy.model.entities.Category;
 import com.example.quizzy.model.entities.CategoryAndQuestions;
+import com.example.quizzy.model.entities.CategoryWithParties;
+
 import java.util.List;
 
 @Dao
@@ -22,6 +24,13 @@ public interface CategoryDao {
     @Query("SELECT * FROM Category WHERE libelleCategory= :libelle")
     List<CategoryAndQuestions> getCategoryAndQuestions(String libelle);
 
+    @Transaction
+    @Query("SELECT * FROM Category WHERE libelleCategory= :libelle")
+    List<CategoryWithParties> getCategoryAndParties(String libelle);
+
+    @Transaction
+    @Query(("SELECT * FROM Category WHERE (SELECT count(*) FROM QUESTION WHERE categoryOwnerQuestion_id = :id GROUP BY categoryOwnerQuestion_id) >= 10"))
+    List<Category> getSufficientCategory(int id);
 
     @Query("SELECT * FROM category WHERE id_category= :id")
     Category getCategoryById(Integer id);

@@ -16,6 +16,8 @@ public class Category {
     @ColumnInfo(name = "libelleCategory")
     private String libelleCategory;
 
+
+
     public Category( String libelle){
         this.libelleCategory= libelle;
     }
