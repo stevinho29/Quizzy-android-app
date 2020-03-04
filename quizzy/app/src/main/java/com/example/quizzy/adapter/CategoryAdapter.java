@@ -22,11 +22,11 @@ import com.example.quizzy.view.CategoryViewHolder;
 
 import java.util.List;
 
-public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> implements View.OnClickListener {
+public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder>  {
 
     private List<Category> mCategories;
     private TextView libelle;
-    private SelectListener mListener;
+
     private CategoryListener mCategoryListener;
 
     //Constructeur
@@ -42,7 +42,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> im
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.recycler_category_item, parent, false);
 
-        view.setOnClickListener(this);
 
         return new CategoryViewHolder(view, mCategoryListener);
     }
@@ -56,20 +55,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> im
     public int getItemCount() {
         return null != mCategories ? mCategories.size():0;
     }
-
-    public void setCategoryListener(SelectListener mListener) {
-        this.mListener = mListener;
-    }
-
-
-    @Override
-    public void onClick(View v) {
-        libelle= v.findViewById(R.id.headCard);
-        Log.d("category listener",libelle.getText().toString());
-
-       mListener.onCategorySelected(libelle.getText().toString());
-    }
-
 
 
 }

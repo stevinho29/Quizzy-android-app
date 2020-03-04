@@ -23,11 +23,14 @@ public class Party {
     @ColumnInfo(name = "date_party")
     public Date date_party;
 
-    public Party( Integer duree, Integer score, Date date){
+    public Integer categoryOwnerParty_id;
+
+    public Party( Integer duree, Integer score, Date date, Integer categoryOwnerParty_id){
 
         this.duree= duree;
         this.score= score;
         this.date_party= date;
+        this.categoryOwnerParty_id= categoryOwnerParty_id;
     }
     public Party(){}
     @NonNull
@@ -58,4 +61,5 @@ public class Party {
     public Date getDate_party() { return date_party; }
 
     public void setDate_party(Date date_party) { this.date_party = date_party; }
+
 }

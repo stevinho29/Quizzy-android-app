@@ -1,7 +1,5 @@
 package com.example.quizzy.model.daos;
 
-import android.support.v4.app.INotificationSideChannel;
-
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -10,12 +8,10 @@ import androidx.room.Query;
 import androidx.room.Transaction;
 import androidx.room.Update;
 
-import com.example.quizzy.model.entities.Category;
+import com.example.quizzy.model.entities.CategoryWithParties;
 import com.example.quizzy.model.entities.Question;
 import com.example.quizzy.model.entities.QuestionAndReponseVraie;
 import com.example.quizzy.model.entities.QuestionAndReponsesFalse;
-import com.example.quizzy.model.entities.QuestionWithParties;
-import com.example.quizzy.model.entities.User;
 
 import java.util.List;
 
@@ -29,10 +25,6 @@ public interface QuestionDao {
     @Transaction
     @Query("SELECT * FROM Question WHERE libelleQuestion= :libelle ")
     List<QuestionAndReponsesFalse> getQuestionAndResponseFalse(String libelle);
-
-    @Transaction
-    @Query("SELECT * FROM Question ")
-    List<QuestionWithParties> getQuestionAndParties();
 
 
 

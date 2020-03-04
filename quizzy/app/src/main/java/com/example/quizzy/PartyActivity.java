@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.Html;
@@ -15,9 +16,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.quizzy.adapter.AnswerAdapter;
 import com.example.quizzy.adapter.CategoryAdapter;
+import com.example.quizzy.interfaces.SelectListener;
 import com.example.quizzy.model.Repository.UserDatabase;
 import com.example.quizzy.model.entities.Category;
 import com.example.quizzy.model.entities.CategoryAndQuestions;
@@ -29,6 +32,7 @@ import com.example.quizzy.model.entities.ReponseFausse;
 import com.example.quizzy.model.entities.ReponseVraie;
 import com.example.quizzy.utils.Constants;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -43,18 +47,30 @@ public class PartyActivity extends AppCompatActivity implements View.OnClickList
     private List<ReponseFausse> reponseFausseList;
     private ReponseVraie reponseVraie;
 
-
+    private static MediaPlayer mediaPlayer;
     private Button start;
     private ProgressBar jauge;
+    static long globalMillis;
+    static long millis;
     private TextView question;
 
-    private CountDownTimer countDownTimer=null;
+    private static CountDownTimer globalCountDownTimer=null;
+    private static CountDownTimer singleCountDownTimer= null;
     private boolean adapterAlreadySet= false;
     private Toolbar bar;
     private Integer currentIndex =1;
+    boolean canceled = false;
+
     AnswerAdapter adapter;
     RecyclerView rv;
-
+    SelectListener mSelectedResponse= new SelectListener() {
+        @Override
+        public void onResponseSelected() {
+            if(singleCountDownTimer != null) {
+                canceled = true;
+            }
+        }
+    };
     static String libelle = null;
 
     boolean running =   false;
@@ -67,6 +83,8 @@ public class PartyActivity extends AppCompatActivity implements View.OnClickList
 
         db= QuizzyApplication.getDb();
 
+        if(mediaPlayer != null)
+            mediaPlayer.release();
 
         final Intent intent = getIntent();
 
@@ -82,6 +100,7 @@ public class PartyActivity extends AppCompatActivity implements View.OnClickList
             getQuestionForCurrentCategory(libelle);
         }else
             getQuestionForCurrentCategory("Entertainment: Board Games");
+
         bar= findViewById(R.id.app_bar);
         question= findViewById(R.id.question);
         jauge= findViewById(R.id.determinateBar);
@@ -97,6 +116,11 @@ public class PartyActivity extends AppCompatActivity implements View.OnClickList
             public void run() {
                 categoryAndQuestionsList= db.CategoryDao().getCategoryAndQuestions(libelle);
                 questionList= categoryAndQuestionsList.get(0).questionList;
+                if(questionList.size() < 10) {
+                    start.setOnClickListener(null);     // on désactive le listener si pas assez de question pour cette catégorie
+                    Toast.makeText(PartyActivity.this,"There is not enough questions for this theme... please wait until we provide enough",Toast.LENGTH_SHORT).show();
+                }
+                Collections.shuffle(questionList);      // on mélange les questions pour ne pas avoir à chaque fois les mm et dans le mm ordre
                 //Log.d("Category et questions",categoryAndQuestionsList.get(0).questionList.get(0).getLibelleQuestion());
             }
         });
@@ -136,7 +160,7 @@ public class PartyActivity extends AppCompatActivity implements View.OnClickList
 
         if(!adapterAlreadySet)
         {
-            adapter = new AnswerAdapter(reponseFausseList, reponseVraie);
+            adapter = new AnswerAdapter(reponseFausseList, reponseVraie,mSelectedResponse);
             rv = findViewById(R.id.answer_recycler);
 
             // Set layout manager to position the items
@@ -152,64 +176,91 @@ public class PartyActivity extends AppCompatActivity implements View.OnClickList
         if(v.getId() == R.id.startQuiz) {
             start.setVisibility(View.GONE);
             jauge.setVisibility(View.VISIBLE);
+
             currentIndex = 1;
-            new CountDownTimer(questionList.size()*10000, 10000) {
-                public void onTick(long millisUntilFinished)
-                {
-                    if (adapter != null)
-                        score += adapter.score;
-                    bar.setTitle(currentIndex+"/" + questionList.size());
-                    adapterAlreadySet = false;
-                    Question q = questionList.get(currentIndex-1);//array commence à 0 index à 1
-                    while(true){
-                        if(getCurrentAnswers(q))  // pour rendre l'exécution synchrone
-                            break;
-                    }
-                    //getCurrentAnswers(q);
-                    onAnswersRetrieved(reponseFausseList);
-                    onQuestionRetrieved(q);
-                    countDownTimer = new CountDownTimer(10000, 1000) {
-                        public void onTick(long millisUntilFinished)
-                        {
-                            jauge.setProgress((int) millisUntilFinished - 1000);
-                        }
-                        public void onFinish()
-                        {
-                            jauge.setProgress(10000);
-                        }
-                    }.start();
-                    currentIndex++;
-                }
-                public void onFinish()
-                {
-                        startActivity(getResultatIntent(score,libelle));
-                }
-            }.start();
-            /*for(Question q: questionList) {
-                bar.setTitle(currentIndex+"/"+questionList.size());
-                adapterAlreadySet = false;
-                while(true){
-                    if(getCurrentAnswers(q)){  // pour rendre l'exécution synchrone
-                        Log.d("msg", "1fois");
-                        break;}
-                }
-                //getCurrentAnswers(q);
-                onAnswersRetrieved(reponseFausseList);
-                onQuestionRetrieved(q);
-                /*countDownTimer = new CountDownTimer(10000, 1000) {
-                    public void onTick(long millisUntilFinished)
+                globalCountDownTimer= new CountDownTimer(10*10000, 10000) {
+                    public void onTick(long globalMillis)
                     {
-                        jauge.setProgress((int) millisUntilFinished - 1000);
-                        Log.d("msg", "timer");
+                        onStartQuizzMusic();
+                        if (adapter != null)
+                            score += adapter.score;
+                        bar.setTitle(currentIndex+"/" + 10);
+                        adapterAlreadySet = false;
+                        Question q = questionList.get(currentIndex-1);//array commence à 0 index à 1
+                        while(true){
+                            if(getCurrentAnswers(q))  // pour rendre l'exécution synchrone
+                                break;
+                        }
+                        //getCurrentAnswers(q);
+                        onAnswersRetrieved(reponseFausseList);
+                        onQuestionRetrieved(q);
+                        singleCountDownTimer = new CountDownTimer(10000, 1000) {
+                            public void onTick(long millis)
+                            {
+                                jauge.setProgress((int) millis - 1000);
+                            }
+                            public void onFinish()
+                            {
+                                jauge.setProgress(10000);
+                            }
+                        }.start();
+                        currentIndex++;
                     }
                     public void onFinish()
                     {
-                        jauge.setProgress(10000);
+                        releaseMediaPlayer();
+                        startActivity(getResultatIntent(score,libelle));
+                    }
+                }.start();
+
+
+            /*
+            for(int i=0;i < 10 ; i++){
+                globalCountDownTimer= new CountDownTimer(10000,10000) {
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+
+                        onStartQuizzMusic();
+                        if (adapter != null)
+                            score += adapter.score;
+                        bar.setTitle(currentIndex+"/" + 10);
+                        adapterAlreadySet = false;
+                        Question q = questionList.get(currentIndex-1);//array commence à 0 index à 1
+                        Log.d("bjkhb", q.getLibelleQuestion());
+                        while(true){
+                            if(getCurrentAnswers(q))  // pour rendre l'exécution synchrone
+                                break;
+                        }
+                        //getCurrentAnswers(q);
+                        onAnswersRetrieved(reponseFausseList);
+                        onQuestionRetrieved(q);
+                        singleCountDownTimer = new CountDownTimer(10000, 1000) {
+                            public void onTick(long millis)
+                            {
+                                if(!canceled)
+                                    jauge.setProgress((int) millis - 1000);
+                                else{
+                                    mediaPlayer.stop();
+                                    cancel();
+                                    globalCountDownTimer.cancel();
+                                    jauge.setProgress(10000);
+                                }
+                            }
+                            public void onFinish()
+                            {
+                                mediaPlayer.stop();
+                                jauge.setProgress(10000);
+                            }
+                        }.start();
+                        currentIndex++;
                     }
 
-                }.start();
-                currentIndex++;
-            }*/
+                    @Override
+                    public void onFinish() { }
+                };
+            }
+            */
+
         }
     }
 
@@ -217,13 +268,30 @@ public class PartyActivity extends AppCompatActivity implements View.OnClickList
         final Intent resultatIntent = new Intent(this, ResultatActivity.class);
         final Bundle extras = new Bundle();
         extras.putString("libelle",libelle);
-        extras.putString("score", score+"/"+questionList.size());
+        extras.putString("score", score+"/10");
         resultatIntent.putExtras(extras);
         return resultatIntent;
     }
-    /*@Override
+
+    public void onStartQuizzMusic(){
+        int jinglegoquizzId= getResources().getIdentifier("jinglegoquizz","raw",getPackageName());
+        mediaPlayer= MediaPlayer.create(PartyActivity.this,jinglegoquizzId);
+        mediaPlayer.start();
+    }
+    public static void releaseMediaPlayer(){
+        if( mediaPlayer != null) {
+            mediaPlayer.stop();
+            mediaPlayer.release();
+        }
+    }
+    @Override
     public void onBackPressed() {
-        finish();
-    }*/
+    super.onBackPressed();
+    singleCountDownTimer.cancel();
+    globalCountDownTimer.cancel();
+    releaseMediaPlayer();
+    //finish();
+    }
+
 }
 

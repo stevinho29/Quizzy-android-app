@@ -124,7 +124,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 return;
             }
 
-            User user= new User(name.getText().toString(),surname.getText().toString(),email.getText().toString(),password.getText().toString(),date);
+            User user= new User(pseudo.getText().toString(),name.getText().toString(),surname.getText().toString(),email.getText().toString(),password.getText().toString(),date);
             try{
                 ExecutorService executor = Executors.newSingleThreadExecutor();
                 executor.submit(new Runnable() {

@@ -8,7 +8,6 @@ import androidx.room.Transaction;
 import androidx.room.Update;
 
 import com.example.quizzy.model.entities.Party;
-import com.example.quizzy.model.entities.PartyWithQuestions;
 import com.example.quizzy.model.entities.PartyWithUsers;
 
 import java.util.List;
@@ -19,13 +18,8 @@ public interface PartyDao {
     @Query("SELECT * FROM Party")
     List<Party> getAllParties();
 
-    @Transaction
-    @Query("SELECT * FROM Party")
-    List<PartyWithUsers> getPartyWithUsers();
-
-    @Transaction
-    @Query("SELECT * FROM Party")
-    List<PartyWithQuestions> getPartyWithQuestions();
+    @Query("SELECT * FROM Party WHERE categoryOwnerParty_id= :id")
+    Party getAPartyByCategory(Integer id);
 
     @Insert
     void insertParty(Party party);

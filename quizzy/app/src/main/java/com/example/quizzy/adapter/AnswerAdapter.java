@@ -15,22 +15,24 @@ import androidx.core.text.HtmlCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.quizzy.R;
+import com.example.quizzy.interfaces.SelectListener;
 import com.example.quizzy.model.entities.ReponseFausse;
 import com.example.quizzy.model.entities.ReponseVraie;
 
 
 import java.util.List;
 
-public class AnswerAdapter extends RecyclerView.Adapter<AnswerAdapter.AnswerHolder> {
+public class AnswerAdapter extends RecyclerView.Adapter<AnswerAdapter.AnswerHolder>  {
     private List<ReponseFausse> mAnswers;
     private ReponseVraie mTrue;
     private TextView libelle;
     public int mSelectedItem = -1;
     public int score = 0;
-
-    public AnswerAdapter(List<ReponseFausse> list, ReponseVraie rVraie) {
-        mAnswers = list;
-        mTrue = rVraie;
+    public SelectListener mSelectedResponse;
+    public AnswerAdapter(List<ReponseFausse> list, ReponseVraie rVraie, SelectListener mSelectedResponse) {
+        this.mAnswers = list;
+        this.mTrue = rVraie;
+        this.mSelectedResponse= mSelectedResponse;
     }
     @NonNull
     @Override
@@ -71,11 +73,15 @@ public class AnswerAdapter extends RecyclerView.Adapter<AnswerAdapter.AnswerHold
             mButton = itemView.findViewById(R.id.selectAnswerButton);
             View.OnClickListener clickListener = v -> {
                 mSelectedItem = getAdapterPosition();
+                if(mSelectedResponse != null)
+                    mSelectedResponse.onResponseSelected();
+
                 if(mLabel.getText().toString().equals(mTrue.getLibelleReponseVraie()))
                     score = 1;
                 else
                     score = 0;
                 notifyDataSetChanged();
+
             };
             itemView.setOnClickListener(clickListener);
             mButton.setOnClickListener(clickListener);
