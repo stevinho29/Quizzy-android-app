@@ -25,6 +25,8 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
         bar= findViewById(R.id.app_bar);
+        Toolbar myToolbar = findViewById(R.id.app_bar);
+        setSupportActionBar(myToolbar);
 
         final Intent intent = getIntent();
         if(null!= intent){
