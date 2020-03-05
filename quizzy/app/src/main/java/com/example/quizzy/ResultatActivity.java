@@ -71,6 +71,7 @@ public class ResultatActivity extends AppCompatActivity {
         View.OnClickListener clickListener = v -> {
             releaseMediaPlayer();
             startActivity(getGuestIntent());
+            finish();
         };
         findViewById(R.id.newParty).setOnClickListener(clickListener);
     }
@@ -111,6 +112,6 @@ public class ResultatActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         releaseMediaPlayer();
-        //finish();
+        finish();
     }
 }

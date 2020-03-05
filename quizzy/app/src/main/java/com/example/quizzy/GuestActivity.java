@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -50,8 +51,17 @@ public class GuestActivity extends AppCompatActivity implements CategoryListener
         super.onStart();
         db = QuizzyApplication.getDb();
         //final String login = PreferenceUtils.getUsername();
+        //progressBar.setVisibility(View.VISIBLE);
 
         getCategory();
+
+        try {
+            sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }finally {
+            Toast.makeText(GuestActivity.this,"fetching Themes....",Toast.LENGTH_LONG).show();
+        }
     }
 
     public void getCategory(){
@@ -63,11 +73,12 @@ public class GuestActivity extends AppCompatActivity implements CategoryListener
                 public void run() {
                     List<Category> categoryList = db.CategoryDao().getAllCategory();
                     QuizzyApplication.setPermanentCategoryList(categoryList);
+
                     onCategoryRetrieved(categoryList);
                 }
             });
-        }else{onCategoryRetrieved(QuizzyApplication.getPermanentCategoryList());
-
+        }else{
+            onCategoryRetrieved(QuizzyApplication.getPermanentCategoryList());
         }
 
     }
@@ -87,9 +98,7 @@ public class GuestActivity extends AppCompatActivity implements CategoryListener
 
         adapter.notifyDataSetChanged();
     }
-
-
-
+    
 
     private Intent getPartyIntent(String libelle){
         final Intent partyIntent = new Intent(this,PartyActivity.class);
@@ -99,11 +108,6 @@ public class GuestActivity extends AppCompatActivity implements CategoryListener
         partyIntent.putExtras(extras);
         return partyIntent;
     }
-
-    /*@Override
-    public void onCategorySelected(String libelle) {
-        startActivity(getPartyIntent(libelle));
-    }*/
 
     @Override
     public void onViewCategory(String categoryLibelle) {

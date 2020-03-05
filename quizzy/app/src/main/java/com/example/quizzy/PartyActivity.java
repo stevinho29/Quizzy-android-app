@@ -207,6 +207,7 @@ public class PartyActivity extends AppCompatActivity implements View.OnClickList
                     public void onFinish() {
                         releaseMediaPlayer();
                         startActivity(getResultatIntent(score, libelle));
+                        finish();
                     }
                 }.start();
             }else{
@@ -296,7 +297,7 @@ public class PartyActivity extends AppCompatActivity implements View.OnClickList
     if(globalCountDownTimer != null)
         globalCountDownTimer.cancel();
     releaseMediaPlayer();
-    //finish();
+    finish();
     }
 
 }
