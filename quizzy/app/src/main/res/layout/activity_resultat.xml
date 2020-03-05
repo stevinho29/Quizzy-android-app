@@ -73,10 +73,10 @@
         <Button
             android:id="@+id/newParty"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="65dp"
             android:layout_marginTop="@dimen/resultat_bouton_margin"
             android:layout_marginBottom="@dimen/resultat_bouton_margin"
-            android:backgroundTint="@color/colorSecond"
+            android:backgroundTint="@color/colorLightBlue"
             android:backgroundTintMode="add"
             android:text="Nouvelle partie"
             android:textAlignment="center"

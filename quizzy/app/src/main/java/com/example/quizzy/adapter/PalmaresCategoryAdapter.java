@@ -58,8 +58,6 @@ public class PalmaresCategoryAdapter extends RecyclerView.Adapter<PalmaresCatego
 
     @Override
     public void onClick(View v) {
-        libelle= v.findViewById(R.id.headCard);
-        Log.d("palmares category listener",libelle.getText().toString());
-        mListener.onCategorySelected(libelle.getText().toString());
+
     }
 }
