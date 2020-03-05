@@ -40,7 +40,7 @@ public class GuestActivity extends AppCompatActivity implements CategoryListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guest);
 
-        progressBar= findViewById(R.id.progressBarCategory);
+        //progressBar= findViewById(R.id.progressBarCategory);
 
     }
 
@@ -72,7 +72,7 @@ public class GuestActivity extends AppCompatActivity implements CategoryListener
             mediaPlayer.release();
         onStartMusic();
 
-        progressBar.setVisibility(View.GONE);
+        //progressBar.setVisibility(View.GONE);
         adapter = new CategoryAdapter(categoryList, this);
         rv = findViewById(R.id.home_recycler);
         // Set layout manager to position the items
@@ -112,8 +112,10 @@ public class GuestActivity extends AppCompatActivity implements CategoryListener
         mediaPlayer.start();
     }
     public static void releaseMediaPlayer(){
-        mediaPlayer.stop();
-        mediaPlayer.release();
+        if(mediaPlayer != null) {
+            mediaPlayer.stop();
+            mediaPlayer.release();
+        }
     }
     public void onBackPressed() {
         super.onBackPressed();

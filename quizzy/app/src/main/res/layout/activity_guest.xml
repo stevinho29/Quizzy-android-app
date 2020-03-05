@@ -20,13 +20,7 @@
             android:paddingEnd="@dimen/header_padding_end"
             app:title="@string/accueil" />
 
-        <ProgressBar
-            android:id="@+id/progressBarCategory"
-            style="?android:attr/progressBarStyle"
-            android:background="@color/colorMain"
-            android:layout_width="match_parent"
-            android:layout_height="127dp"
-            android:visibility="visible" />
+
     </com.google.android.material.appbar.AppBarLayout>
 
     <FrameLayout

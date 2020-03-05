@@ -189,7 +189,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
-        executor.submit(new Runnable() {
+      /*  executor.submit(new Runnable() {
             @Override
             public void run() {
                 List<Category> listCategory = db.CategoryDao().getAllCategory();
@@ -208,10 +208,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Question question = db.QuestionDao().getSpecificQuestion(1);
                 Log.d("Quizz Question",question.getLibelleQuestion());
                 //List<Question> listQuestion = db.QuestionDao().getAllQuestion();
-                /*for(Question q: questionList){
+                *//*for(Question q: questionList){
 
                     Log.d("Quizz Questions",q.getLibelleQuestion());
-                }*/
+                }*//*
 
 
             }
@@ -220,8 +220,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void run() {
                 List<User> listUser = db.UserDao().getAllUser();
-                for(User u: listUser){
-                    Log.d("Quizz User",u.getName());
+
+                if( listUser.size() >0) {
+                    for (User u : listUser) {
+                        Log.d("Quizz User", u.getName());
+                    }
+                }
+                else{
+                    Log.d("Quizz user","no user");
                 }
             }
         });
@@ -252,7 +258,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Log.d("SAVING","liste de participants nulle");
             }
 
-        });
+        });*/
 
     }
 }

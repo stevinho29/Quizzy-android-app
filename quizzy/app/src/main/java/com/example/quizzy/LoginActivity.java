@@ -85,7 +85,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 @Override
                 public void run() {
 
-                    if (db.UserDao().getAuthenticatedUser(username, password) == null) {
+                    if (db.UserDao().getAuthenticatedUser(username, password) != null) {
 
                         try {
                             sleep(500);

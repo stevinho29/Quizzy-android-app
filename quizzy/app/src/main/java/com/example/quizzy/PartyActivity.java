@@ -287,8 +287,10 @@ public class PartyActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onBackPressed() {
     super.onBackPressed();
-    singleCountDownTimer.cancel();
-    globalCountDownTimer.cancel();
+    if(singleCountDownTimer != null)
+        singleCountDownTimer.cancel();
+    if(globalCountDownTimer != null)
+        globalCountDownTimer.cancel();
     releaseMediaPlayer();
     //finish();
     }

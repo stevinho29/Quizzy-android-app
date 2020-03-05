@@ -100,8 +100,10 @@ public class ResultatActivity extends AppCompatActivity {
         mediaPlayer.start();
     }
     public static void releaseMediaPlayer(){
-        mediaPlayer.stop();
-        mediaPlayer.release();
+        if(mediaPlayer != null) {
+            mediaPlayer.stop();
+            mediaPlayer.release();
+        }
     }
     public void onBackPressed() {
         super.onBackPressed();
