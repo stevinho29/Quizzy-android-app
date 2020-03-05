@@ -30,6 +30,7 @@ public class GuestActivity extends AppCompatActivity implements CategoryListener
     CategoryAdapter adapter;
     RecyclerView rv;
     SelectListener mListener;
+
     private static MediaPlayer mediaPlayer;
 
     private static List<Category> categoryList;
@@ -51,19 +52,23 @@ public class GuestActivity extends AppCompatActivity implements CategoryListener
         //final String login = PreferenceUtils.getUsername();
 
         getCategory();
-
     }
 
     public void getCategory(){
 
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-        executor.submit(new Runnable() {
-            @Override
-            public void run() {
-                List<Category> categoryList= db.CategoryDao().getAllCategory();
-                onCategoryRetrieved(categoryList);
-            }
-        });
+        if(QuizzyApplication.getPermanentCategoryList().size() == 0) {
+            ExecutorService executor = Executors.newSingleThreadExecutor();
+            executor.submit(new Runnable() {
+                @Override
+                public void run() {
+                    List<Category> categoryList = db.CategoryDao().getAllCategory();
+                    QuizzyApplication.setPermanentCategoryList(categoryList);
+                    onCategoryRetrieved(categoryList);
+                }
+            });
+        }else{onCategoryRetrieved(QuizzyApplication.getPermanentCategoryList());
+
+        }
 
     }
     public void onCategoryRetrieved(List<Category> categoryList) {
@@ -88,7 +93,7 @@ public class GuestActivity extends AppCompatActivity implements CategoryListener
 
     private Intent getPartyIntent(String libelle){
         final Intent partyIntent = new Intent(this,PartyActivity.class);
-        partyIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+       // partyIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         final Bundle extras = new Bundle();
         extras.putString("libelle", libelle);
         partyIntent.putExtras(extras);
@@ -110,10 +115,15 @@ public class GuestActivity extends AppCompatActivity implements CategoryListener
         int jingleId= getResources().getIdentifier("jingle","raw",getPackageName());
         mediaPlayer= MediaPlayer.create(GuestActivity.this,jingleId);
         mediaPlayer.start();
+        mediaPlayer.setLooping(true);
     }
     public static void releaseMediaPlayer(){
-        if(mediaPlayer != null) {
-            mediaPlayer.stop();
+        if( mediaPlayer != null) {
+            if(mediaPlayer.isLooping()) {
+                mediaPlayer.setLooping(false);
+                if(mediaPlayer.isPlaying())
+                    mediaPlayer.stop();
+            }
             mediaPlayer.release();
         }
     }

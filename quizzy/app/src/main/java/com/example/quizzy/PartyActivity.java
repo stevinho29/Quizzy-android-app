@@ -116,10 +116,7 @@ public class PartyActivity extends AppCompatActivity implements View.OnClickList
             public void run() {
                 categoryAndQuestionsList= db.CategoryDao().getCategoryAndQuestions(libelle);
                 questionList= categoryAndQuestionsList.get(0).questionList;
-                if(questionList.size() < 10) {
-                    start.setOnClickListener(null);     // on désactive le listener si pas assez de question pour cette catégorie
-                    Toast.makeText(PartyActivity.this,"There is not enough questions for this theme... please wait until we provide enough",Toast.LENGTH_SHORT).show();
-                }
+
                 Collections.shuffle(questionList);      // on mélange les questions pour ne pas avoir à chaque fois les mm et dans le mm ordre
                 //Log.d("Category et questions",categoryAndQuestionsList.get(0).questionList.get(0).getLibelleQuestion());
             }
@@ -177,42 +174,44 @@ public class PartyActivity extends AppCompatActivity implements View.OnClickList
             start.setVisibility(View.GONE);
             jauge.setVisibility(View.VISIBLE);
 
-            currentIndex = 1;
-                globalCountDownTimer= new CountDownTimer(10*10000, 10000) {
-                    public void onTick(long globalMillis)
-                    {
-                        onStartQuizzMusic();
+            if( questionList.size() >=10) {
+                currentIndex = 1;
+                onStartQuizzMusic();
+                globalCountDownTimer = new CountDownTimer(10 * 10000, 10000) {
+                    public void onTick(long globalMillis) {
+
                         if (adapter != null)
                             score += adapter.score;
-                        bar.setTitle(currentIndex+"/" + 10);
+                        bar.setTitle(currentIndex + "/" + 10);
                         adapterAlreadySet = false;
-                        Question q = questionList.get(currentIndex-1);//array commence à 0 index à 1
-                        while(true){
-                            if(getCurrentAnswers(q))  // pour rendre l'exécution synchrone
+                        Question q = questionList.get(currentIndex - 1);//array commence à 0 index à 1
+                        while (true) {
+                            if (getCurrentAnswers(q))  // pour rendre l'exécution synchrone
                                 break;
                         }
                         //getCurrentAnswers(q);
                         onAnswersRetrieved(reponseFausseList);
                         onQuestionRetrieved(q);
                         singleCountDownTimer = new CountDownTimer(10000, 1000) {
-                            public void onTick(long millis)
-                            {
+                            public void onTick(long millis) {
                                 jauge.setProgress((int) millis - 1000);
                             }
-                            public void onFinish()
-                            {
+
+                            public void onFinish() {
                                 jauge.setProgress(10000);
                             }
                         }.start();
                         currentIndex++;
                     }
-                    public void onFinish()
-                    {
+
+                    public void onFinish() {
                         releaseMediaPlayer();
-                        startActivity(getResultatIntent(score,libelle));
+                        startActivity(getResultatIntent(score, libelle));
                     }
                 }.start();
-
+            }else{
+                Toast.makeText(PartyActivity.this,"There is not enough questions for this theme... please wait until we provide enough",Toast.LENGTH_SHORT).show();
+            }
 
             /*
             for(int i=0;i < 10 ; i++){
@@ -277,10 +276,15 @@ public class PartyActivity extends AppCompatActivity implements View.OnClickList
         int jinglegoquizzId= getResources().getIdentifier("jinglegoquizz","raw",getPackageName());
         mediaPlayer= MediaPlayer.create(PartyActivity.this,jinglegoquizzId);
         mediaPlayer.start();
+        mediaPlayer.setLooping(true);
     }
     public static void releaseMediaPlayer(){
         if( mediaPlayer != null) {
-            mediaPlayer.stop();
+            if(mediaPlayer.isLooping()) {
+                mediaPlayer.setLooping(false);
+                if(mediaPlayer.isPlaying())
+                    mediaPlayer.stop();
+            }
             mediaPlayer.release();
         }
     }

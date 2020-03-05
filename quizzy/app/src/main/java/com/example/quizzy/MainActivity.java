@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         guest.setOnClickListener(this);
         user.setOnClickListener(this);
 
-        PreferenceUtils.deletePrefs();
+        //PreferenceUtils.deletePrefs();
 
         if(!PreferenceUtils.getFirstTime()) {
             isConnected(getApplicationContext());

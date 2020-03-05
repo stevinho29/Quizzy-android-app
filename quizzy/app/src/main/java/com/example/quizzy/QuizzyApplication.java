@@ -7,12 +7,16 @@ import android.media.MediaPlayer;
 import androidx.room.Room;
 
 import com.example.quizzy.model.Repository.UserDatabase;
+import com.example.quizzy.model.entities.Category;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class QuizzyApplication extends Application {
     private static Context sContext;
 
     static UserDatabase db;
-
+    static List<Category> permanentCategoryList= new ArrayList<>();
 
 
     public void onCreate(){
@@ -34,5 +38,10 @@ public class QuizzyApplication extends Application {
         return db;
     }
 
-
+    public static List<Category> getPermanentCategoryList(){
+        return permanentCategoryList;
+    }
+    public static void setPermanentCategoryList(List<Category> list){
+        permanentCategoryList= list;
+    }
 }

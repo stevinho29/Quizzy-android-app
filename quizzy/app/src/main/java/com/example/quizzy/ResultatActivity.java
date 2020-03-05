@@ -48,10 +48,15 @@ public class ResultatActivity extends AppCompatActivity {
             score ="05/10";
         if(mediaPlayer != null)
             mediaPlayer.release();
+
+        scoreText = findViewById(R.id.score);
+        scoreText.setText(score+"\n"+libelle);
+
+        onDisplayResultMusic(); // générique de fin
+
         greetings=findViewById(R.id.greetingsTextView);
         if(PreferenceUtils.getUsername() != null) {
             greetings.setText("Félicitations " + PreferenceUtils.getUsername());
-        onDisplayResultMusic(); // générique de fin
 
             ExecutorService executor = Executors.newSingleThreadExecutor();
             executor.submit(new Runnable() {
@@ -62,9 +67,6 @@ public class ResultatActivity extends AppCompatActivity {
                 }
             });
         }
-
-        scoreText = findViewById(R.id.score);
-        scoreText.setText(score+"\n"+libelle);
 
         View.OnClickListener clickListener = v -> {
             releaseMediaPlayer();
@@ -101,7 +103,8 @@ public class ResultatActivity extends AppCompatActivity {
     }
     public static void releaseMediaPlayer(){
         if(mediaPlayer != null) {
-            mediaPlayer.stop();
+            if(mediaPlayer.isPlaying())
+                mediaPlayer.stop();
             mediaPlayer.release();
         }
     }

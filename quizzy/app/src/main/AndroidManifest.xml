@@ -21,7 +21,6 @@
             </intent-filter></activity>
         <activity android:name=".UserActivity" />
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".QuestionsActivity" />
         <activity android:name=".GuestActivity" />
         <activity android:name=".ResultatActivity" />
         <activity android:name=".PalmaresActivity" />

@@ -11,7 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.quizzy.ui.fragments.CategoriesFragment;
+
 import com.example.quizzy.utils.Constants;
 import com.example.quizzy.utils.PreferenceUtils;
 
