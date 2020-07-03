@@ -53,10 +53,9 @@ public class PersistData {
             }
         }
         else{  // ici la catégorie n'existe pas encore de ce fait les questions et réponses aussi
-
             System.out.println("JE PASSE ICI");
             db.CategoryDao().insertCategory(new Category(quizz.category));
-            Integer id_c= db.CategoryDao().getCategoryBylibelle(quizz.category).getId_category();
+            Integer id_c = db.CategoryDao().getCategoryBylibelle(quizz.category).getId_category();
 
             db.QuestionDao().insertQuestion(new Question(quizz.question,quizz.difficulty,id_c));
             Integer id_q= db.QuestionDao().getQuestionBylibelle(quizz.question).getId_question();
@@ -88,7 +87,7 @@ public class PersistData {
 
     private static boolean checkIfCategoryAlreadyExist(String category){  // on check si la catégorie existe dans la BDD
 
-        Category c= db.CategoryDao().getCategoryBylibelle(category);
+        Category c = db.CategoryDao().getCategoryBylibelle(category);
         if(c != null)
             return true;
         return false;

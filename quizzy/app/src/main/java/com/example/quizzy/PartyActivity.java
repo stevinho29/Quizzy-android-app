@@ -153,7 +153,7 @@ public class PartyActivity extends AppCompatActivity implements View.OnClickList
             start.setVisibility(View.GONE);
             jauge.setVisibility(View.VISIBLE);
             currentIndex = 1;
-            new CountDownTimer(questionList.size()*10000, 10000) {
+            new CountDownTimer(questionList.size()*25000, 25000) {
                 public void onTick(long millisUntilFinished)
                 {
                     if (adapter != null)
